@@ -18,3 +18,5 @@ Some new lines from PyCharm:
 - line
 - line
 - line
+
+Эта строка добавлена в README в рамках специальной ветки, для рефакторинга данного файла.
