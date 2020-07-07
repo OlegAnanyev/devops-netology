@@ -13,3 +13,8 @@
 Новая строка в README
 Ещё одна новая строка.
 New line from "fix" branch
+----------------------------------------------------
+Some new lines from PyCharm:
+- line
+- line
+- line
