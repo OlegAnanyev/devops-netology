@@ -1,2 +1,4 @@
 This is a new line in "has_been_moved.txt".
 This is a second new line.
+
+This is a third new line. (from master)
