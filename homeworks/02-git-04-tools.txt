@@ -10,7 +10,7 @@
 	v0.12.23
 	
 3. Сколько родителей у коммита b8d720? Напишите их хеши.
-	git log -n 1 b8d720 --pretty=%P
+	git show b8d720 --pretty=%P
 	
 	Два родителя:
 	56cd7859e05c36c06b56d013b55a252d0bb7e158
@@ -46,10 +46,6 @@
 	41ab0aef7a0fe030e84018973a64135b11abcd70
 	66ebff90cdfaa6938f26f908c7ebad8d547fea17
 	8364383c359a6b738a436d1b7745ccdce178df47
-
-	
-	
-	
 	
 
 7. Кто автор функции synchronizedWriters?
