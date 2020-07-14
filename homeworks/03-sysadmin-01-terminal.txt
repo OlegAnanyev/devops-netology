@@ -1,0 +1,35 @@
+5. Ресурсы по-умолчанию: 1 ядро ЦП, 1024 Гб ОЗУ.
+6. Изменить выделяемые ресурсы можно через конфиг, например так:
+config.vm.provider "virtualbox" do |v|
+  v.memory = 2048
+  v.cpus = 2
+end
+
+8. задать длину журнала history можно через переменнуя HISTSIZE, строка 966 в man bash
+директива ignoreboth в переменной HISTCONTROL включает директивы ignorespace и ignoredups, т.е. в истории не будут сохраняться команды, начинающиеся с пробела, а также команды, которые уже сохранены в истории
+
+9. с помощью фигурных скобок можно выполнить одну команду несколько раз с разными параметрами; описано на строке 281
+
+10. 100 000 получилось массово создать и массово удалить, а 300 000 уже перебор:
+vagrant@vagrant:~/touch_test$ touch {1..300000}
+-bash: /usr/bin/touch: Argument list too long
+
+11. -d это аргумент команды rm, он явно вказывает, что мы хотим удалить директорию, без него этого не сделать
+
+12. 
+#создаю новую директорию под исполняемые файлы
+vagrant@vagrant:/tmp$ mkdit new_path_directory
+
+#добаляю её первой в $PATH
+vagrant@vagrant:/tmp/new_path_directory$ export PATH='/tmp/new_path_directory:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin'
+
+#копирую сам bash в эту директорию
+vagrant@vagrant:/tmp/new_path_directory$ cp /usr/bin/bash /tmp/new_path_directory/bash
+
+#проверяю
+vagrant@vagrant:/tmp/new_path_directory$ type -a bash
+bash is /tmp/new_path_directory/bash
+bash is /usr/bin/bash
+bash is /bin/bash
+
+13. с помощью at можно запланировать выполнение команды в указанное время, а с помощью batch во время 
