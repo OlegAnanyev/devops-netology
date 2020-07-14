@@ -18,7 +18,7 @@ vagrant@vagrant:~/touch_test$ touch {1..300000}
 
 12. 
 #создаю новую директорию под исполняемые файлы
-vagrant@vagrant:/tmp$ mkdit new_path_directory
+vagrant@vagrant:/tmp$ mkdir new_path_directory
 
 #добаляю её первой в $PATH
 vagrant@vagrant:/tmp/new_path_directory$ export PATH='/tmp/new_path_directory:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin'
