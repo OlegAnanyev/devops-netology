@@ -1,0 +1,67 @@
+Домашнее задание к занятию "3.3. Операционные системы"
+
+
+strace bash -- всё вешает, почему?
+
+1. Ключевым системным вызовом команды cd можно, пожалуй, считать chdir() :
+vagrant@vagrant:~$ strace -e trace=read /bin/bash -c 'cd /tmp' 2>&1 | grep tmp
+chdir("/tmp")
+
+2. Основная база с сигнатурами типов файлов для команды file лежит в /usr/share/misc/magic.mgc
+vagrant@vagrant:~$ strace file ~/list.txt 2>&1 | grep open
+openat(AT_FDCWD, "/usr/share/misc/magic.mgc", O_RDONLY) = 3
+
+и ещё есть файл /etc/magic, в котором тоже могут быть сигнатуры
+openat(AT_FDCWD, "/etc/magic", O_RDONLY) = 3
+
+3.
+
+4. Процессы-зомби не занимают таких ресурсов ОС как CPU, RAM, IO, но занимают строки в таблице процессов, которая тоже не бесконечна.
+
+5. Через opensnoop первыми видим вызовы open к следующим файлам:
+vagrant@vagrant:~$ sudo opensnoop-bpfcc
+
+PID    COMM               FD ERR PATH                                                                                                                        
+825    vminfo              5   0 /var/run/utmp                                                                                                               
+610    dbus-daemon        -1   2 /usr/local/share/dbus-1/system-services                                                                                     
+610    dbus-daemon        18   0 /usr/share/dbus-1/system-services                                                                                           
+610    dbus-daemon        -1   2 /lib/dbus-1/system-services                                                                                                 
+                                                                                                      
+
+6. uname -a использует одноимённый системный вызов -- uname()
+"Part of the utsname information is also accessible via /proc/sys/kernel/{ostype, hostname, osrelease, version, domainname}."
+
+7. В случае использования &&, последующая команда выполняется только в случае, если предыдущая завершилась успешно (с кодом 0). В случае с ; это условие не проверяется. Однако если использовать set -e, то разницы не будет.
+-e  Exit immediately if a command exits with a non-zero status.
+
+8. Режим set -euxo pipefail состоит из следующих опций:
+-e  Exit immediately if a command exits with a non-zero status. -- сразу прерывать сценарий, если в результате хотя бы одной команды не получили успешного завершения
+-u  Treat unset variables as an error when substituting. -- если какая-то переменная не задана, считать это ошибкой
+-x  Print commands and their arguments as they are executed. -- выводить команды с аргументами
+-o option-name
+pipefail     the return value of a pipeline is the status of the last command to exit with a non-zero status, or zero if no command exited with a non-zero status -- счатать результатом исполнения сценария 0, если все команды завершились с кодом 0, в противном случае кодом завершения сценария считать код завершения последней команды, которая завершилась не с нулевым кодом (вместе с опцией -e она же будет и первой).
+Этот режим хорошо использовать в сценариях, потому что он минимизирует возможные проблемы после запуска сценария и даёт информацию для отладки.
+
+9. Если считать то, что выдаёт ps -o stat, то в моей системе ровно половина процессов в статусе S -- interruptible sleep и половина в статусе R -- running.
+Если смотреть все процессы в системе через ps -e -o stat, то больше всего S и довольно много I -- Idle kernel thread.
+
+
+10. Да, факт виртуализации и используемая система определяется через dmesg.
+vagrant@vagrant:~$ dmesg | grep virtu
+[    0.086444] Booting paravirtualized kernel on KVM
+[    2.285718] systemd[1]: Detected virtualization oracle.
+
+на другой системе:
+[hawk:~/PycharmProjects … -netology/homeworks] master ± dmesg | grep virtu
+[    0.057054] Booting paravirtualized kernel on VMware hypervisor
+[    2.401279] systemd[1]: Detected virtualization vmware.
+
+11.
+
+12.
+
+13.
+
+14.
+
+15.
