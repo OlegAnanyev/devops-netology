@@ -1,7 +1,4 @@
-Домашнее задание к занятию "3.3. Операционные системы"
-
-
-strace bash -- всё вешает, почему?
+﻿Домашнее задание к занятию "3.3. Операционные системы"
 
 1. Ключевым системным вызовом команды cd можно, пожалуй, считать chdir() :
 vagrant@vagrant:~$ strace -e trace=read /bin/bash -c 'cd /tmp' 2>&1 | grep tmp
@@ -14,7 +11,15 @@ openat(AT_FDCWD, "/usr/share/misc/magic.mgc", O_RDONLY) = 3
 и ещё есть файл /etc/magic, в котором тоже могут быть сигнатуры
 openat(AT_FDCWD, "/etc/magic", O_RDONLY) = 3
 
-3.
+3. Чтобы обнулить содержимое открытого удалённого файла, можно сделать так:
+vagrant@vagrant:/tmp$ lsof -p 14875 | grep do_not_delete_me
+python3 14875 vagrant    3r   REG  253,0       20 1572876 /tmp/do_not_delete_me (deleted)
+vagrant@vagrant:/tmp$ cat /proc/14875/fd/3
+Very valuable data!
+vagrant@vagrant:/tmp$ echo "" > /proc/14875/fd/3
+vagrant@vagrant:/tmp$ cat /proc/14875/fd/3
+                                                      
+vagrant@vagrant:/tmp$
 
 4. Процессы-зомби не занимают таких ресурсов ОС как CPU, RAM, IO, но занимают строки в таблице процессов, которая тоже не бесконечна.
 
@@ -56,11 +61,29 @@ vagrant@vagrant:~$ dmesg | grep virtu
 [    0.057054] Booting paravirtualized kernel on VMware hypervisor
 [    2.401279] systemd[1]: Detected virtualization vmware.
 
-11.
+11. fs.nr_open определяет, сколько максимально может быть открыто файловых дескрипторов в системе. По-умолчанию:
+vagrant@vagrant:~$ sysctl -a | grep fs.nr_open
+sysctl: fs.nr_open = 1048576                 
 
-12.
+В ulimit видим более жёсткое ограничение, поэтому работать будет оно.
+vagrant@vagrant:~$ ulimit -a | grep open
+open files                      (-n) 1024
 
-13.
+12. В отдельном screen-е я запустил:
+vagrant@vagrant:~$ sudo unshare -f --pid --mount-proc /bin/bash
+Вернулся в основной screen.
+Проверил, что namespace по pid для sleep создался:
+vagrant@vagrant:~$ sudo lsns
+Проверил, через htop под каким pid целевой процесс - 1201.
+Подключился к неймспейсу данного процесса:
+vagrant@vagrant:~$ sudo nsenter --target 1201 --pid --mount                                                                                                                                                                                     
+root@vagrant:/# ps aux                                                                                                                                                                                                                          
+USER         PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND                                                                                                                                                                      
+root           1  0.0  0.0   8076   528 pts/1    S+   16:35   0:00 sleep 1h                                                                                                                                                                     
+root           2  0.0  0.3   9836  3916 pts/0    S    16:39   0:00 -bash                                                                                                                                                                        
+root          11  0.0  0.3  11476  3308 pts/0    R+   16:39   0:00 ps aux 
+
+13. :(){ :|:& };: это последовательность команд, которая является "fork-бомбой" -- функция вызывает себя дважды, каждая из вызванных функций вызывает себя дважды и так далее в геометрической прогрессии пока не кончатся ресурсы.
 
 14.
 
