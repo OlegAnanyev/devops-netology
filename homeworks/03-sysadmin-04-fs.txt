@@ -1,0 +1,48 @@
+3.4. Файловые системы
+1. Ок.
+
+2. Все файлы, являющиеся жёсткой ссылкой на один объект, имеют одинаковые права доступа и владельца потому что эта информация хранится в inode, а у всех этих файлов он один.
+
+3. Ок.
+
+4. Ок.
+
+5.
+root@vagrant:~# sfdisk -d /dev/sdb > partable_dump
+root@vagrant:~# sfdisk -d /dev/sdc < partable_dump
+
+6. root@vagrant:/dev# mdadm --create --verbose /dev/md1 --level=1 --raid-devices=2 /dev/sdb1 /dev/sdc1
+
+7. root@vagrant:/dev# mdadm --create --verbose /dev/md0 --level=0 --raid-devices=2 /dev/sdb2 /dev/sdc2
+
+8. root@vagrant:~# pvcreate /dev/md0 /dev/md1
+
+9. root@vagrant:~# vgcreate vg0 /dev/md0 /dev/md1
+
+10. root@vagrant:~# lvcreate -L 100M -n lv0 /dev/vg0 /dev/md0
+
+11. root@vagrant:~# mkfs.ext4 -L test_lv0 /dev/vg0/lv0
+
+12. 
+root@vagrant:/dev# mkdir /tmp/new_mnt                                                                                                      root@vagrant:/dev# mount /dev/vg0/lv0
+
+13.
+root@vagrant:/tmp/new_mnt# wget https://mirror.yandex.ru/ubuntu/ls-lR.gz -O /tmp/new_mnt/test.gz
+
+14. Ок.
+
+15. Ок.
+
+16. root@vagrant:/tmp/new_mnt# pvmove /dev/md0 /dev/md1
+
+17. root@vagrant:/tmp/new_mnt# mdadm /dev/md1 --fail
+18.
+root@vagrant:/tmp/new_mnt# dmesg | grep md1                                                                                                                             
+[  488.534324] md/raid1:md1: not clean -- starting background reconstruction                                                                                            
+[  488.534325] md/raid1:md1: active with 2 out of 2 mirrors                                                                                                             
+[  488.534334] md1: detected capacity change from 0 to 2144337920                                                                                                       
+[  488.534464] md: resync of RAID array md1                                                                                                                             
+[  499.209673] md: md1: resync done.                                             
+19. Ok.
+20. Ok.
+
