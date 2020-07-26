@@ -29,7 +29,7 @@ root@vagrant:/dev# mkdir /tmp/new_mnt                                           
 13.
 root@vagrant:/tmp/new_mnt# wget https://mirror.yandex.ru/ubuntu/ls-lR.gz -O /tmp/new_mnt/test.gz
 
-14. Ок.
+14. https://github.com/OlegAnanyev/devops-netology/blob/master/homeworks/03-sysadmin-04-fs-p14.png
 
 15. Ок.
 
