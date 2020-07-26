@@ -24,7 +24,8 @@ root@vagrant:~# sfdisk -d /dev/sdc < partable_dump
 11. root@vagrant:~# mkfs.ext4 -L test_lv0 /dev/vg0/lv0
 
 12. 
-root@vagrant:/dev# mkdir /tmp/new_mnt                                                                                                      root@vagrant:/dev# mount /dev/vg0/lv0
+root@vagrant:/dev# mkdir /tmp/new_mnt
+root@vagrant:/dev# mount /dev/vg0/lv0
 
 13.
 root@vagrant:/tmp/new_mnt# wget https://mirror.yandex.ru/ubuntu/ls-lR.gz -O /tmp/new_mnt/test.gz
