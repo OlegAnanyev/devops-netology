@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>03-sysadmin-07-security</title>
+<style>
+    body {
+        width: 35em;
+        margin: 0 auto;
+        font-family: Tahoma, Verdana, Arial, sans-serif;
+    }
+</style>
+</head>
+<body>
+<h1>Домашнее задание 03-sysadmin-07-security</h1>
+<p>1. ok</p>
+<p>2. ok
+<pre>	
+$ vault server -dev
+==> Vault server configuration:
+
+             Api Address: http://127.0.0.1:8200
+                     Cgo: disabled
+         Cluster Address: https://127.0.0.1:8201
+              Go Version: go1.14.4
+              Listener 1: tcp (addr: "127.0.0.1:8200", cluster address: "127.0.0.1:8201", max_request_duration: "1m30s", max_request_size: "33554432", tls: "disabled")
+               Log Level: info
+                   Mlock: supported: true, enabled: false
+           Recovery Mode: false
+                 Storage: inmem
+                 Version: Vault v1.5.0
+</pre>
+</p>
+<p>3. ok</p>
+<p>4. ok<br>
+<pre>
+$ vault write pki_int/issue/example-dot-com common_name="netology.example.com" ttl="24h"
+Key                 Value
+---                 -----
+ca_chain            [-----BEGIN CERTIFICATE-----
+MIIDpjCCAo6gAwIBAgIUReCqA+bnPdGk0tiaqeuT7XJHFDwwDQYJKoZIhvcNAQEL
+...
+3gu18vNRMWqnbydChzEhHSo7f9TEVECfIIcskpeOELx+bmlRisrAKCZon3gQ7QLj
+1SbtwrXFIQKELgSvqXPF2PisIv9LGU+SJvE=
+-----END CERTIFICATE-----]
+certificate         -----BEGIN CERTIFICATE-----
+...
+</pre>
+</p>
+<p>5. ok</p>
+<p>6. ok<br>
+	<img src="curl"><br>
+	<img src="firefox"><br>
+</p>
+<p>7. ok<br>
+	<img src="lets">
+</p>
+
+
+
+
