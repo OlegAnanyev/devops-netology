@@ -56,21 +56,23 @@ done
 4.
 ```bash
 #!/bin/bash
-for i in {1..5}
+i=0
+while ((1))
 do
 	echo "Checking #$i..."
-	for host in 173.194.222.113 87.250.250.242 192.168.0.1
+	for host in 192.168.0.1 173.194.222.113 87.250.250.242
 	do
 		curl http://"$host":80 --max-time 5 1>/dev/null  2>/dev/null
 		if (($? == 0))
 		then
-			echo "$(date) $host is UP!" >> 3.log
+			echo "$(date) $host is UP!" >> curl.log
 		else
-			echo "$(date) $host is DOWN!" >> 3.log
 			echo "$(date) $host is DOWN!" >> error.log
 			exit 1
 		fi
 	done
+((i++))
+sleep 3
 done
 ```
 5*. 
