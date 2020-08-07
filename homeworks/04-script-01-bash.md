@@ -1,4 +1,5 @@
 ﻿1.  
+```bash
 	a=1
 	b=2
 	
@@ -6,19 +7,20 @@
 	vagrant@vagrant:~$ echo $c
 	a+b
 	#потому что не использовали обращение к переменной через $
-	
+
 	d=$a+$b
 	vagrant@vagrant:~$ echo $d
 	1+2
 	#потому что при присвоении значения переменной $d, переменные $a и $b воспринимаются интерпретатором как строковые 
-	
+
 	e=$(($a+$b))
 	vagrant@vagrant:~$ echo $e
 	3
 	#потому что двойные скобки явно указывают, что $a и $b должны использоваться как целочисленные переменные
-
+```
 2.
 В исходном скрипте не хватало скобки и, что важно, не было оператора break. Я бы оптимизировал скрипт таким образом:
+```bash
 	#!/bin/bash
 	while ((1))
 		do
@@ -33,7 +35,9 @@
 			fi
 		sleep 5
 	done
+```	
 3.
+```bash
 #!/bin/bash
 for i in {1..5}
 do
@@ -49,8 +53,9 @@ do
 		fi
 	done
 done
-
+```
 4.
+```bash
 #!/bin/bash
 for i in {1..5}
 do
@@ -68,11 +73,11 @@ do
 		fi
 	done
 done
-
+```
 5*. 
+```bash
 #Скрипт /devops-netology/.git/hooks/commit-msg
 #!/usr/bin/env bash
-
 while read line; do
     # пропускаем строки комментариев
     if [ "${line:0:1}" == "#" ]; then
@@ -83,18 +88,15 @@ while read line; do
         exit 1
     fi
 done < "${1}"
-
-
 commit_regex='^\[04-script-01-bash\]'
 error_msg="Сообщение коммита должно начинаться с [04-script-01-bash]"
-
 #если в сообщении коммита нет строки, начинающейся с нужного шаблона
 if ! grep -iqE "$commit_regex" "$1"; then
     echo "$error_msg" >&2
     exit 1
 fi
 exit 0
-
+```
 ==============================
 Проверяем:
 $ git commit -m "test hook"
