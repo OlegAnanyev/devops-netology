@@ -20,20 +20,20 @@
 ```
 2. В исходном скрипте не хватало скобки и, что важно, не было оператора break. Я бы оптимизировал скрипт таким образом:
 ```bash
-	#!/bin/bash
-	while ((1))
-		do
-			curl http://localhost:80
-			if (($? == 0))
-			then
-				echo "$(date)" "Host is up!" >> curl.log
-				break
+#!/bin/bash
+while ((1))
+	do
+		curl http://localhost:80
+		if (($? == 0))
+		then
+			echo "$(date)" "Host is up!" >> curl.log
+			break
 	
-			else
-				echo "$(date)" "Host is down!" >> curl.log
-			fi
-		sleep 5
-	done
+		else
+			echo "$(date)" "Host is down!" >> curl.log
+		fi
+	sleep 5
+done
 ```	
 3.
 ```bash
