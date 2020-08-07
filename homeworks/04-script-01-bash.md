@@ -96,7 +96,6 @@ if ! grep -iqE "$commit_regex" "$1"; then
 fi
 exit 0
 ```
-
 Проверяем:
 ```bash
 $ git commit -m "test hook"
