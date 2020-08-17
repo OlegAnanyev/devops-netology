@@ -89,7 +89,7 @@ if os.path.exists("ip_check.txt"):
     ip_dict={}
 
     lines = f.read().split('\n')
-    # не совсем понимаю откуда берётся четвёртый элемент, но удалим его
+    # последняя строка пустая, удалим её
     del lines[-1]
 
     for line in lines:
