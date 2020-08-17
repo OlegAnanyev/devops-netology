@@ -113,5 +113,5 @@ for host in hostnames:
 f.write(output)
 f.close()
 ```
-5.
-123
+5*.
+Пока разбираюсь.
