@@ -61,7 +61,7 @@ else:
     exit(-1)
 ```
 Тест:
-```python
+```
 $./3.py /home/hawk/PycharmProject
 Need path to git repository as a parameter!
 
