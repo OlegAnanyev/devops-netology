@@ -1,7 +1,7 @@
 04-script-02-py
 
 1.
-```
+```python
 #!/usr/bin/env python3
 a = 1
 b = '2'
@@ -13,7 +13,7 @@ c = a + b
     Как получить для переменной c значение 3? -- b = 2
 
 2.
-```
+```python
 import os
 
 repo_dir = "/home/hawk/PycharmProjects/devops-netology/"
@@ -33,7 +33,7 @@ print(prepare_result)
 /home/hawk/PycharmProjects/devops-netology/test1.txt
 ```
 3.
-```
+```python
 #!/usr/bin/env python3
 
 import os
@@ -61,7 +61,7 @@ else:
     exit(-1)
 ```
 Тест:
-```
+```python
 $./3.py /home/hawk/PycharmProject
 Need path to git repository as a parameter!
 
@@ -75,7 +75,7 @@ $./3.py /home/hawk/PycharmProjects/devops-netology/
 /home/hawk/PycharmProjects/devops-netology/test1.txt
 ```
 4.
-```
+```python
 #!/usr/bin/env python3
 
 import socket
