@@ -114,4 +114,22 @@ f.write(output)
 f.close()
 ```
 5*.
-Пока разбираюсь.
+```python
+#!/usr/bin/env python3
+import sys
+from github import Github
+if len(sys.argv) > 1 and sys.argv[1] != "":
+    pr_body = sys.argv[1]
+else:
+    print("Pull request message can't be empty!")
+    exit(-1)
+
+repo_name = "devops-netology"
+g = Github("###TOKEN###TOKEN###TOKEN###")
+
+repo = g.get_user().get_repo(repo_name)
+
+print("Creating pull request on repo: " + repo_name + ". With message: " + pr_body)
+repo.create_pull(title="Pull request from Python script", body=pr_body, head="new_branch", base="master")
+```
+Тестовый PR: https://github.com/OlegAnanyev/devops-netology/pull/4
