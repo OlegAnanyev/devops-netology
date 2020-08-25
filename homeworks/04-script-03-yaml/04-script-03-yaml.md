@@ -1,6 +1,6 @@
 04-script-03-yaml
 
-1. Корректный JSON-файл должен выглядеть так:
+1. Корректный по синтаксису JSON-файл должен выглядеть так:
 ```json
 { "info" : "Sample JSON output from our service\t",
     "elements" :[
