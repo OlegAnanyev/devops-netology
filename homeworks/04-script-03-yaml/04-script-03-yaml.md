@@ -99,6 +99,8 @@ def is_yaml(myyaml):
     try:
         yaml_object = yaml.safe_load(myyaml)
     except yaml.YAMLError as e:
+        pos = e.problem_mark
+        print ("Error in YAML on line " + pos.line+1)
         return False
     return True
 
