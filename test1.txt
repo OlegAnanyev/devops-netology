@@ -4,3 +4,4 @@
 SSH!
 1234
 edited by VSCode server
+edited via ssh-fs
