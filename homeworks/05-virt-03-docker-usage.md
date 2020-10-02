@@ -24,8 +24,9 @@
 - Jenkins-сервер.
 
 ## Задача 2 
-https://hub.docker.com/r/olegananyev/netology-httpd
+
+[https://hub.docker.com/r/olegananyev/netology-httpd](https://hub.docker.com/r/olegananyev/netology-httpd)
 
 ## Задача 3 
 
-ссылка на скрин
+![screenshot](https://raw.githubusercontent.com/OlegAnanyev/devops-netology/master/homeworks/05-virt-03-docker-usage.png)
