@@ -1,7 +1,8 @@
 # Домашнее задание к занятию "5.4. Практические навыки работы с Docker"
 
 ## Задача 1 
-- Dockerfile
+- Dockerfile:
+
 ```
 FROM centos:centos7
 RUN yum check-update && \
@@ -14,11 +15,14 @@ RUN yum check-update && \
 ENTRYPOINT ["/usr/bin/ponysay"]
 CMD ["Hey, netology"]
 ```
+
 - Скриншот:
 
 ![Скриншот](https://raw.githubusercontent.com/OlegAnanyev/devops-netology/master/homeworks/05-virt-04-docker-practical-skills-1v1.png)
 
-- [Образ](https://hub.docker.com/r/olegananyev/ponysay-centos)
+- Образ: 
+
+[https://hub.docker.com/r/olegananyev/ponysay-centos](https://hub.docker.com/r/olegananyev/ponysay-centos)
 
 
 
