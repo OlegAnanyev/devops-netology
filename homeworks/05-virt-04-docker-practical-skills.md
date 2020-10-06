@@ -1,29 +1,21 @@
 # Домашнее задание к занятию "5.4. Практические навыки работы с Docker"
 
 ## Задача 1 
-
-В данном задании вы научитесь изменять существующие Dockerfile, адаптируя их под нужный инфраструктурный стек.
-
-Измените базовый образ предложенного Dockerfile на CentOS или Oracle Linux c сохранением его функциональности.
-
-```text
-FROM ubuntu:latest
-
-RUN apt-get update && \
-    apt-get install -y software-properties-common && \
-    add-apt-repository ppa:vincent-c/ponysay && \
-    apt-get update
- 
-RUN apt-get install -y ponysay
-
-ENTRYPOINT ["/usr/bin/ponysay"]
-CMD ["Hey, netology”]
+- Dockerfile
 ```
-
-Для получения зачета, вам необходимо предоставить:
-- Написанный вами Dockerfile
-- Скриншот вывода командной строки после запуска контейнера из вашего базового образа
-- Ссылку на образ в вашем хранилище docker-hub
+FROM centos:centos7
+RUN yum check-update && \
+    yum install -y texinfo python3 wget && \
+    wget http://github.com/erkin/ponysay/archive/master.tar.gz && \
+    tar -xzf master.tar.gz && \
+    cd ponysay-master && \
+    ./setup.py install --freedom=partial && \
+     rm -rf /master.tar.gz /ponysay-master
+ENTRYPOINT ["/usr/bin/ponysay"]
+CMD ["Hey, netology"]
+```
+- [Скриншот:](https://raw.githubusercontent.com/OlegAnanyev/devops-netology/master/homeworks/05-virt-04-docker-practical-skills-1v1.png)
+- [Образ](https://hub.docker.com/r/olegananyev/ponysay-centos)
 
 ## Задача 2 
 
