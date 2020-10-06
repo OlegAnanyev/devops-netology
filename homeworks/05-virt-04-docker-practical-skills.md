@@ -14,8 +14,13 @@ RUN yum check-update && \
 ENTRYPOINT ["/usr/bin/ponysay"]
 CMD ["Hey, netology"]
 ```
-- [Скриншот:](https://raw.githubusercontent.com/OlegAnanyev/devops-netology/master/homeworks/05-virt-04-docker-practical-skills-1v1.png)
+- Скриншот:
+
+![Скриншот](https://raw.githubusercontent.com/OlegAnanyev/devops-netology/master/homeworks/05-virt-04-docker-practical-skills-1v1.png)
+
 - [Образ](https://hub.docker.com/r/olegananyev/ponysay-centos)
+
+
 
 ## Задача 2 
 
