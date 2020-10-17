@@ -39,9 +39,9 @@ CMD ["java", "-jar", "/usr/lib/jenkins/jenkins.war"]
 
 - Скриншоты:
 
-![Логи](https://raw.githubusercontent.com/OlegAnanyev/devops-netology/master/homeworks/05-virt-04-docker-practical-skills-1v1.png)
+![Логи](https://raw.githubusercontent.com/OlegAnanyev/devops-netology/master/homeworks/log_corretto.png =700x)
 
-![Веб-интефейс](https://raw.githubusercontent.com/OlegAnanyev/devops-netology/master/homeworks/05-virt-04-docker-practical-skills-1v1.png)
+![Веб-интефейс](https://raw.githubusercontent.com/OlegAnanyev/devops-netology/master/homeworks/screen_corretto.png =700x)
 
 - Образ: 
 
