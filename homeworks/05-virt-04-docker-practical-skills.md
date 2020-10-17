@@ -75,21 +75,85 @@ CMD ["java", "-jar", "/usr/share/jenkins/jenkins.war"]
 
 ## Задача 3 
 
-В данном задании вы научитесь:
-- объединять контейнеры в единую сеть
-- исполнять команды "изнутри" контейнера
+- Dockerfile:
 
-Для выполнения задания вам нужно:
-- Написать Dockerfile: 
-    - Использовать образ https://hub.docker.com/_/node как базовый
-    - Установить необходимые зависимые библиотеки для запуска npm приложения https://github.com/simplicitesoftware/nodejs-demo
-    - Выставить у приложения (и контейнера) порт 3000 для прослушки входящих запросов  
-    - Соберите образ и запустите контейнер в фоновом режиме с публикацией порта
+```
+FROM node
+ADD https://github.com/simplicitesoftware/nodejs-demo/archive/master.zip /
+RUN unzip master.zip && \
+    cd /nodejs-demo-master && \
+    npm install
+EXPOSE 3000
+WORKDIR "/nodejs-demo-master"
+CMD ["npm", "start", "0.0.0.0"]
+```
 
-- Запустить второй контейнер из образа ubuntu:latest 
-- Создайть `docker network` и добавьте в нее оба запущенных контейнера
-- Используя `docker exec` запустить командную строку контейнера `ubuntu` в интерактивном режиме
-- Используя утилиту `curl` вызвать путь `/` контейнера с npm приложением  
+- Список сетей:
+
+```
+07:35:24 hawk@ubuntu-server ~ → docker network ls
+NETWORK ID          NAME                DRIVER              SCOPE
+66de3a38b069        bridge              bridge              local
+f1b555ae580e        host                host                local
+d60169761a06        node_network        bridge              local
+9cc68b3eca05        none                null                local
+```
+
+- Подробности по сети node_network:
+
+```
+07:41:35 hawk@ubuntu-server ~ → docker network inspect node_network
+[
+    {
+        "Name": "node_network",
+        "Id": "d60169761a06705ec36544d0d49c7bbf2c3bff96e744058a40c3bfb3632999ca",
+        "Created": "2020-10-17T19:33:39.902392136+03:00",
+        "Scope": "local",
+        "Driver": "bridge",
+        "EnableIPv6": false,
+        "IPAM": {
+            "Driver": "default",
+            "Options": {},
+            "Config": [
+                {
+                    "Subnet": "172.18.0.0/16",
+                    "Gateway": "172.18.0.1"
+                }
+            ]
+        },
+        "Internal": false,
+        "Attachable": false,
+        "Ingress": false,
+        "ConfigFrom": {
+            "Network": ""
+        },
+        "ConfigOnly": false,
+        "Containers": {
+            "1e1b27c38e0b34560f5b48f2f4cfb7c4303cf07dfceb2551c081f80990e533bd": {
+                "Name": "cool_blackwell",
+                "EndpointID": "22385ec1a4a7f806a968f2820bd7007ae710da138f8d3c88be34ad6b98acf05d",
+                "MacAddress": "02:42:ac:12:00:02",
+                "IPv4Address": "172.18.0.2/16",
+                "IPv6Address": ""
+            },
+            "57e80454c31886f320cc18d9b7aa75212e51cf97b2fdf6e950c6219dc112cbca": {
+                "Name": "flamboyant_jang",
+                "EndpointID": "38838f18d847da8866d4b1473fbe34014bd6e91970440323d14df55ef51e7b77",
+                "MacAddress": "02:42:ac:12:00:03",
+                "IPv4Address": "172.18.0.3/16",
+                "IPv6Address": ""
+            }
+        },
+        "Options": {},
+        "Labels": {}
+    }
+]
+
+```
+
+- Скриншот curl:
+
+Логи: (https://raw.githubusercontent.com/OlegAnanyev/devops-netology/master/homeworks/log_ubuntu.png)
 
 Для получения зачета, вам необходимо предоставить:
 - Наполнение Dockerfile с npm приложением
