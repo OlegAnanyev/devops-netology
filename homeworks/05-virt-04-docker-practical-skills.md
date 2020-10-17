@@ -153,9 +153,4 @@ d60169761a06        node_network        bridge              local
 
 - Скриншот curl:
 
-Логи: (https://raw.githubusercontent.com/OlegAnanyev/devops-netology/master/homeworks/log_ubuntu.png)
-
-Для получения зачета, вам необходимо предоставить:
-- Наполнение Dockerfile с npm приложением
-- Скриншот вывода вызова команды списка docker сетей (docker network cli)
-- Скриншот вызова утилиты curl с успешным ответом
+Скриншот: (https://raw.githubusercontent.com/OlegAnanyev/devops-netology/master/homeworks/curl_node.png)
