@@ -48,7 +48,7 @@ CMD ["java", "-jar", "/usr/lib/jenkins/jenkins.war"]
 [https://hub.docker.com/repository/docker/olegananyev/jenkins-corretto](https://hub.docker.com/repository/docker/olegananyev/jenkins-corretto)
 
 ---------------------------
-- Dockerfile Corretto:
+- Dockerfile Ubuntu:
 
 ```
 FROM ubuntu:latest
