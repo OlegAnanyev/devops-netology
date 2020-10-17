@@ -64,9 +64,9 @@ CMD ["java", "-jar", "/usr/share/jenkins/jenkins.war"]
 
 - Скриншоты:
 
-![Логи](https://raw.githubusercontent.com/OlegAnanyev/devops-netology/master/homeworks/05-virt-04-docker-practical-skills-1v1.png)
+Логи: (https://raw.githubusercontent.com/OlegAnanyev/devops-netology/master/homeworks/log_ubuntu.png)
 
-![Веб-интефейс](https://raw.githubusercontent.com/OlegAnanyev/devops-netology/master/homeworks/05-virt-04-docker-practical-skills-1v1.png)
+Веб-интефейс: (https://raw.githubusercontent.com/OlegAnanyev/devops-netology/master/homeworks/screen_ubuntu.png)
 
 - Образ: 
 
