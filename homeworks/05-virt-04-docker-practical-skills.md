@@ -27,31 +27,51 @@ CMD ["Hey, netology"]
 
 
 ## Задача 2 
+- Dockerfile Corretto:
 
-В данной задаче вы составите несколько разных Dockerfile для проекта Jenkins, опубликуем образ в `dockerhub.io` и посмотрим логи этих контейнеров.
+```
+FROM amazoncorretto
+ADD https://pkg.jenkins.io/redhat-stable/jenkins.repo /etc/yum.repos.d/
+RUN rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key && \
+    yum install -y jenkins
+CMD ["java", "-jar", "/usr/lib/jenkins/jenkins.war"]
+```
 
-- Составьте 2 Dockerfile:
+- Скриншоты:
 
-    - Общие моменты:
-        - Образ должен запускать [Jenkins server](https://www.jenkins.io/download/)
-        
-    - Спецификация первого образа:
-        - Базовый образ - [amazoncorreto](https://hub.docker.com/_/amazoncorretto)
-        - Присвоить образу тэг `ver1` 
-    
-    - Спецификация второго образа:
-        - Базовый образ - [ubuntu:latest](https://hub.docker.com/_/ubuntu)
-        - Присвоить образу тэг `ver2` 
+![Логи](https://raw.githubusercontent.com/OlegAnanyev/devops-netology/master/homeworks/05-virt-04-docker-practical-skills-1v1.png)
 
-- Соберите 2 образа по полученным Dockerfile
-- Запустите и проверьте их работоспособность
-- Опубликуйте образы в своём dockerhub.io хранилище
+![Веб-интефейс](https://raw.githubusercontent.com/OlegAnanyev/devops-netology/master/homeworks/05-virt-04-docker-practical-skills-1v1.png)
 
-Для получения зачета, вам необходимо предоставить:
-- Наполнения 2х Dockerfile из задания
-- Скриншоты логов запущенных вами контейнеров (из командной строки)
-- Скриншоты веб-интерфейса Jenkins запущенных вами контейнеров (достаточно 1 скриншота на контейнер)
-- Ссылки на образы в вашем хранилище docker-hub
+- Образ: 
+
+[https://hub.docker.com/repository/docker/olegananyev/jenkins-corretto](https://hub.docker.com/repository/docker/olegananyev/jenkins-corretto)
+
+---------------------------
+- Dockerfile Corretto:
+
+```
+FROM ubuntu:latest
+ADD https://pkg.jenkins.io/debian-stable/jenkins.io.key /
+RUN apt-get update && \
+    apt-get install -y gnupg ca-certificates && \
+    apt-key add /jenkins.io.key && \
+    sh -c 'echo deb https://pkg.jenkins.io/debian binary/ > /etc/apt/sources.list.d/jenkins.list' && \
+    apt-get update && \
+    apt-get install -y openjdk-8-jdk openjdk-8-jre jenkins
+CMD ["java", "-jar", "/usr/share/jenkins/jenkins.war"]
+```
+
+- Скриншоты:
+
+![Логи](https://raw.githubusercontent.com/OlegAnanyev/devops-netology/master/homeworks/05-virt-04-docker-practical-skills-1v1.png)
+
+![Веб-интефейс](https://raw.githubusercontent.com/OlegAnanyev/devops-netology/master/homeworks/05-virt-04-docker-practical-skills-1v1.png)
+
+- Образ: 
+
+[https://hub.docker.com/repository/docker/olegananyev/jenkins-ubuntu](https://hub.docker.com/repository/docker/olegananyev/jenkins-ubuntu)
+
 
 ## Задача 3 
 
