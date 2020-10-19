@@ -6,6 +6,9 @@
 в который будут складываться данные БД и бэкапы.
 
 Приведите получившуюся команду или docker-compose манифест.
+```
+docker run -v /home/hawk/docker/netology-postgres/data:/var/lib/postgresql/data -v /home/hawk/docker/netology-postgres/backup:/var/lib/postgresql/backup -e POSTGRES_PASSWORD=mysecretpassword -d postgres:12
+```
 
 ## Задача 2
 
