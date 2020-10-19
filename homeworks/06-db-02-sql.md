@@ -19,22 +19,70 @@ docker run -v /home/hawk/docker/netology-postgres/data:/var/lib/postgresql/data 
 - создайте пользователя test-simple-user  
 - предоставьте пользователю test-simple-user права на SELECT/INSERT/UPDATE/DELETE данных таблиц БД test_db
 
-Таблица orders:
-- id (serial primary key)
-- наименование (string)
-- цена (integer)
-
-Таблица clients:
-- id (serial primary key)
-- фамилия (string)
-- страна проживания (string, index)
-- заказ (foreign key orders)
-
 Приведите:
 - итоговый список БД после выполнения пунктов выше,
+```
+test_db-# \list
+                                     List of databases
+   Name    |  Owner   | Encoding |  Collate   |   Ctype    |       Access privileges
+-----------+----------+----------+------------+------------+--------------------------------
+ postgres  | postgres | UTF8     | en_US.utf8 | en_US.utf8 |
+ template0 | postgres | UTF8     | en_US.utf8 | en_US.utf8 | =c/postgres                   +
+           |          |          |            |            | postgres=CTc/postgres
+ template1 | postgres | UTF8     | en_US.utf8 | en_US.utf8 | =c/postgres                   +
+           |          |          |            |            | postgres=CTc/postgres
+ test_db   | postgres | UTF8     | en_US.utf8 | en_US.utf8 | =Tc/postgres                  +
+           |          |          |            |            | postgres=CTc/postgres         +
+           |          |          |            |            | "test-admin-user"=CTc/postgres
+(4 rows)
+```
 - описание таблиц (describe)
+```
+test_db-# \d orders;
+                                   Table "public.orders"
+ Column |         Type          | Collation | Nullable |              Default
+--------+-----------------------+-----------+----------+------------------------------------
+ id     | integer               |           | not null | nextval('orders_id_seq'::regclass)
+ name   | character varying(80) |           |          |
+ price  | integer               |           |          |
+Indexes:
+    "orders_pkey" PRIMARY KEY, btree (id)
+Referenced by:
+    TABLE "clients" CONSTRAINT "clients_order_fkey" FOREIGN KEY ("order") REFERENCES orders(id)
+
+test_db-# \d clients;
+                                    Table "public.clients"
+  Column  |         Type          | Collation | Nullable |               Default
+----------+-----------------------+-----------+----------+-------------------------------------
+ id       | integer               |           | not null | nextval('clients_id_seq'::regclass)
+ lastname | character varying(80) |           |          |
+ country  | character varying(80) |           |          |
+ order    | integer               |           |          |
+Foreign-key constraints:
+    "clients_order_fkey" FOREIGN KEY ("order") REFERENCES orders(id)
+```
 - SQL-запрос для выдачи списка пользователей с правами над таблицами test_db
+```
+
+```
 - список пользователей с правами над таблицами test_db
+```
+test_db-# \dp orders;
+                                     Access privileges
+ Schema |  Name  | Type  |        Access privileges         | Column privileges | Policies
+--------+--------+-------+----------------------------------+-------------------+----------
+ public | orders | table | postgres=arwdDxt/postgres       +|                   |
+        |        |       | "test-simple-user"=arwd/postgres |                   |
+(1 row)
+
+test_db-# \dp clients;
+                                     Access privileges
+ Schema |  Name   | Type  |        Access privileges         | Column privileges | Policies
+--------+---------+-------+----------------------------------+-------------------+----------
+ public | clients | table | postgres=arwdDxt/postgres       +|                   |
+        |         |       | "test-simple-user"=arwd/postgres |                   |
+(1 row)
+```
 
 ## Задача 3
 
