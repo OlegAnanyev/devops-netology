@@ -110,6 +110,31 @@ test_db-# \dp clients;
 
 Используя SQL синтаксис - вычислите количество записей в каждой таблице и 
 приведите в ответе запрос и получившийся результат.
+```
+INSERT INTO orders("id", "name", "price") VALUES(1, 'Шоколад', 10);
+INSERT INTO orders("id", "name", "price") VALUES(2, 'Принтер', 3000);
+INSERT INTO orders("id", "name", "price") VALUES(3, 'Книга', 500);
+INSERT INTO orders("id", "name", "price") VALUES(4, 'Монитор', 7000);
+INSERT INTO orders("id", "name", "price") VALUES(5, 'Гитара', 4000);
+
+INSERT INTO clients("id", "lastname", "country") VALUES(1, 'Иванов Иван Иванович', 'USA');
+INSERT INTO clients("id", "lastname", "country") VALUES(2, 'Петров Петр Петрович', 'Canada');
+INSERT INTO clients("id", "lastname", "country") VALUES(3, 'Иоганн Себастьян Бах', 'Japan');
+INSERT INTO clients("id", "lastname", "country") VALUES(4, 'Ронни Джеймс Дио', 'Russia');
+INSERT INTO clients("id", "lastname", "country") VALUES(5, 'Ritchie Blackmore', 'Russia');
+
+SELECT COUNT(*) FROM orders;
+ count
+-------
+     5
+(1 row)
+
+test_db=# SELECT COUNT(*) FROM clients;
+ count
+-------
+     5
+(1 row)
+```
 
 ## Задача 4
 
