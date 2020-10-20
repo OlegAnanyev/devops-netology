@@ -149,9 +149,20 @@ test_db=# SELECT COUNT(*) FROM clients;
 |Иоганн Себастьян Бах| Гитара |
 
 Приведите SQL-запросы для выполнения данных операций.
-
 Приведите SQL-запрос для выдачи всех пользователей, которые совершили заказ, а также вывод данного запроса.
- 
+```
+UPDATE clients SET "order" = (SELECT id FROM orders WHERE "name"='Книга') WHERE "lastname"='Иванов Иван Иванович';
+UPDATE clients SET "order" = (SELECT id FROM orders WHERE "name"='Монитор') WHERE "lastname"='Петров Петр Петрович';
+UPDATE clients SET "order" = (SELECT id FROM orders WHERE "name"='Гитара') WHERE "lastname"='Иоганн Себастьян Бах';
+
+SELECT "lastname" FROM clients WHERE "order" IS NOT NULL;
+                lastname
+----------------------------------------
+ Иванов Иван Иванович
+ Петров Петр Петрович
+ Иоганн Себастьян Бах
+(3 rows)
+```
 
 ## Задача 5
 
