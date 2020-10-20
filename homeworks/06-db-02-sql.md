@@ -193,3 +193,64 @@ EXPLAIN SELECT "lastname" FROM clients WHERE "order" IS NOT NULL;
 Восстановите БД test_db в новом контейнере.
 
 Приведите список операций, который вы применяли для бэкапа данных и восстановления. 
+
+```
+#делаем дамп базы в каталог для бэкапов
+pg_dump test_db > /var/lib/postgresql/backup/test_db.sql
+
+#останавливаем контейнер
+docker stop 64a4675b728d
+
+#запускаем новый контейнер с теми же volumes
+docker run -v /home/hawk/docker/netology-postgres/data:/var/lib/postgresql/data -v /home/hawk/docker/netology-postgres/backup:/var/lib/postgresql/backup -e POSTGRES_PASSWORD=mysecretpassword -d postgres:12
+
+#логинимся в новый контейнер
+docker exec -it 48498ef1ddb0 /bin/bash
+
+#восстанавливаем БД из бэкапа
+48498ef1ddb0:/# psql -U postgres -f /var/lib/postgresql/backup/test_db.sql
+SET
+SET
+SET
+SET
+SET
+ set_config
+------------
+
+(1 row)
+
+SET
+SET
+SET
+SET
+SET
+SET
+CREATE TABLE
+ALTER TABLE
+CREATE SEQUENCE
+ALTER TABLE
+ALTER SEQUENCE
+CREATE TABLE
+ALTER TABLE
+CREATE SEQUENCE
+ALTER TABLE
+ALTER SEQUENCE
+ALTER TABLE
+ALTER TABLE
+COPY 6
+COPY 5
+ setval
+--------
+      1
+(1 row)
+
+ setval
+--------
+      1
+(1 row)
+
+ALTER TABLE
+ALTER TABLE
+GRANT
+GRANT
+```
