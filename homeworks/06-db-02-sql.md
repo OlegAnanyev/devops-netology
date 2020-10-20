@@ -62,9 +62,6 @@ Foreign-key constraints:
     "clients_order_fkey" FOREIGN KEY ("order") REFERENCES orders(id)
 ```
 - SQL-запрос для выдачи списка пользователей с правами над таблицами test_db
-```
-
-```
 - список пользователей с правами над таблицами test_db
 ```
 test_db-# \dp orders;
