@@ -144,6 +144,7 @@ secure-file-priv= NULL
 
 # Custom config should go here
 !includedir /etc/mysql/conf.d/
+# То есть в принципе лучше писать кастомные конфиги в /etc/mysql/conf.d/mysql.cnf и они подцепятся оттуда, но укажем прямо тут
 
 #Скорость IO важнее сохранности данных
 innodb_flush_log_at_trx_commit = 2
