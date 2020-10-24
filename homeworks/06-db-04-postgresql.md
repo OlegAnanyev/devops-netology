@@ -79,15 +79,11 @@ You are now connected to database "test_database" as user "postgres".
 
 ANALYZE orders;
 
-#лучшее, что у меня получилось ниже, однако автоматически выбрать столбец с наибольшим значением я не смог
-
-SELECT attname AS column, MAX(avg_width) AS max_avg_size FROM pg_stats WHERE tablename='orders' GROUP BY attname;
+SELECT attname AS column, avg_width as max_avg_size FROM pg_stats WHERE avg_width = (SELECT MAX(avg_width) FROM pg_stats WHERE tablename='orders');
  column | max_avg_size
 --------+--------------
- id     |            4
- price  |            4
- title  |           16 <----
-(3 rows)
+ title  |           16
+(1 row)
 ```
 
 # Задача 3
