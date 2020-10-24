@@ -88,6 +88,39 @@ mysql> SELECT * FROM INFORMATION_SCHEMA.USER_ATTRIBUTES WHERE USER = 'test' AND 
 - на `MyISAM`
 - на `InnoDB`
 
+```
+SET profiling = 1;
+mysql> SET profiling = 1;
+Query OK, 0 rows affected, 1 warning (0.00 sec)
+
+mysql> SHOW PROFILES;
+Empty set, 1 warning (0.00 sec)
+
+mysql> SELECT TABLE_NAME, ENGINE FROM information_schema.TABLES where TABLE_SCHEMA = 'test_db';
++------------+--------+
+| TABLE_NAME | ENGINE |
++------------+--------+
+| orders     | InnoDB |
++------------+--------+
+1 row in set (0.00 sec)
+
+#сделаем запрос на изменение с текущим движком (InnoDB)
+UPDATE orders SET price = 111 WHERE title='War and Peace';
+#изменим движок на MyISAM
+ALTER TABLE orders ENGINE = MyISAM;
+#сделаем запрос на изменение с текущим движком (MyISAM)
+UPDATE orders SET price = 222 WHERE title='War and Peace';
+
+#с MyISAM отработало быстрее
+mysql> SHOW PROFILES;
++----------+------------+-----------------------------------------------------------------------------------------+
+| Query_ID | Duration   | Query                                                                                   |
++----------+------------+-----------------------------------------------------------------------------------------+
+|        4 | 0.01328650 | UPDATE orders SET price = 111 WHERE title='War and Peace'                               |
+|        5 | 0.07570275 | ALTER TABLE orders ENGINE = MyISAM                                                      |
+|        6 | 0.00555400 | UPDATE orders SET price = 222 WHERE title='War and Peace'                               |
++----------+------------+-----------------------------------------------------------------------------------------+
+```
 # Задача 4 
 
 Изучите файл `my.cnf` в директории /etc/mysql.
