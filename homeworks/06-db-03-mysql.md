@@ -17,6 +17,34 @@
 
 В следующих заданиях мы будем продолжать работу с данным контейнером.
 
+```
+docker run --name netology-mysql -v /home/hawk/docker/netology-mysql/data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=qwerty -d mysql:8
+docker exec -it netology-mysql bash
+mysql -uroot -pqwerty
+mysql> CREATE DATABASE test_db;
+mysql -uroot -pqwerty test_db < /var/lib/mysql/test_dump.sql
+mysql> \s
+--------------
+mysql  Ver 8.0.22 for Linux on x86_64 (MySQL Community Server - GPL)
+
+mysql> USE test_db
+mysql> SELECT table_name FROM information_schema.tables WHERE table_schema = 'test_db';
++------------+
+| TABLE_NAME |
++------------+
+| orders     |
++------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM test_db.orders WHERE price > 300;
++----+----------------+-------+
+| id | title          | price |
++----+----------------+-------+
+|  2 | My little pony |   500 |
++----+----------------+-------+
+1 row in set (0.00 sec)
+```
+
 # Задача 2
 
 Создайте пользователя test в БД c паролем test-pass, используя:
