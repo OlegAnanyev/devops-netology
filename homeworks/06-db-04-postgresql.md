@@ -119,7 +119,7 @@ pg_dump test_database > /var/lib/postgresql/data/test_database_dump.sql
 Как бы вы доработали бэкап-файл, чтобы добавить уникальность значения столбца `title` для таблиц `test_database`?
 
 ```
-#нужно добавить ключевое слово UNIQUE к нужному столбцу
+-- нужно добавить ключевое слово UNIQUE к нужному столбцу
 --
 -- Name: orders; Type: TABLE; Schema: public; Owner: postgres
 --
