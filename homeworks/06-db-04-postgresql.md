@@ -111,5 +111,22 @@ CREATE RULE order_with_price_less_than_499 AS ON INSERT TO orders WHERE (price <
 # Задача 4
 
 Используя утилиту `pg_dump` создайте бекап БД `test_database`.
+```
+#сохраняем таблицу test_database в файл
+pg_dump test_database > /var/lib/postgresql/data/test_database_dump.sql
+```
 
 Как бы вы доработали бэкап-файл, чтобы добавить уникальность значения столбца `title` для таблиц `test_database`?
+
+```
+#нужно добавить ключевое слово UNIQUE к нужному столбцу
+--
+-- Name: orders; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.orders (
+    id integer NOT NULL,
+    title character varying(80) UNIQUE NOT NULL,
+    price integer DEFAULT 0
+);
+```
