@@ -94,8 +94,20 @@ SELECT attname AS column, avg_width as max_avg_size FROM pg_stats WHERE avg_widt
 
 Предложите SQL-транзакцию для проведения данной операции.
 
-Можно ли было изначально исключить "ручное" разбиение при проектировании таблицы orders?
+```
+CREATE TABLE orders_1 (CHECK (price > 499)) INHERITS orders;
+INSERT INTO orders_1 SELECT * FROM orders WHERE price > 499;
 
+CREATE TABLE orders_2 (CHECK (price <= 499)) INHERITS orders;
+INSERT INTO orders_2 SELECT * FROM orders WHERE price <= 499;
+# не уверен, надо ли очищать основную таблицу (TRUNCATE orders;), т.к. PostgreSQL поддерживает прозрачное шардирование, если установить правила на основную таблицу
+```
+
+Можно ли было изначально исключить "ручное" разбиение при проектировании таблицы orders?
+```
+CREATE RULE order_with_price_more_than_499 AS ON INSERT TO orders WHERE (price > 499) DO INSTEAD INSERT INTO orders_1 VALUES (NEW.*);
+CREATE RULE order_with_price_less_than_499 AS ON INSERT TO orders WHERE (price <= 499) DO INSTEAD INSERT INTO orders_2 VALUES (NEW.*);
+```
 # Задача 4
 
 Используя утилиту `pg_dump` создайте бекап БД `test_database`.
