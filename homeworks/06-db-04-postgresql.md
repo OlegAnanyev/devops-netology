@@ -95,10 +95,10 @@ SELECT attname AS column, avg_width as max_avg_size FROM pg_stats WHERE avg_widt
 Предложите SQL-транзакцию для проведения данной операции.
 
 ```
-CREATE TABLE orders_1 (CHECK (price > 499)) INHERITS orders;
+CREATE TABLE orders_1 (CHECK (price > 499)) INHERITS (orders);
 INSERT INTO orders_1 SELECT * FROM orders WHERE price > 499;
 
-CREATE TABLE orders_2 (CHECK (price <= 499)) INHERITS orders;
+CREATE TABLE orders_2 (CHECK (price <= 499)) INHERITS (orders);
 INSERT INTO orders_2 SELECT * FROM orders WHERE price <= 499;
 # не уверен, надо ли очищать основную таблицу (TRUNCATE orders;), т.к. PostgreSQL поддерживает прозрачное шардирование, если установить правила на основную таблицу
 ```
