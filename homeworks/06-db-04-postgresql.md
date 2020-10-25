@@ -100,6 +100,28 @@ INSERT INTO orders_1 SELECT * FROM orders WHERE price > 499;
 
 CREATE TABLE orders_2 (CHECK (price <= 499)) INHERITS (orders);
 INSERT INTO orders_2 SELECT * FROM orders WHERE price <= 499;
+
+#проверим, что получилось
+test_database=# SELECT * FROM orders_1;
+ id |       title        | price
+----+--------------------+-------
+  2 | My little database |   500
+  6 | WAL never lies     |   900
+  8 | Dbiezdmin          |   501
+(3 rows)
+
+test_database=# SELECT * FROM orders_2;
+ id |        title         | price
+----+----------------------+-------
+  1 | War and peace        |   100
+  3 | Adventure psql time  |   300
+  4 | Server gravity falls |   300
+  5 | Log gossips          |   123
+  7 | Me and my bash-pet   |   499
+(5 rows)
+
+
+
 # не уверен, надо ли очищать основную таблицу (TRUNCATE orders;), т.к. PostgreSQL поддерживает прозрачное шардирование, если установить правила на основную таблицу
 ```
 
