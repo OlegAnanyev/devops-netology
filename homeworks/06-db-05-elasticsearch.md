@@ -27,6 +27,49 @@
 - при некоторых проблемах вам поможет docker директива ulimit
 - elasticsearch в логах обычно описывает проблему и пути ее решения
 
+**Dockerfile:**
+```
+FROM centos:centos7
+
+ADD https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.9.3-linux-x86_64.tar.gz /
+ADD https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.9.3-linux-x86_64.tar.gz.sha512 /
+
+RUN yum check-update && \
+    yum install -y perl-Digest-SHA && \
+    shasum -a 512 -c elasticsearch-7.9.3-linux-x86_64.tar.gz.sha512 && \
+    tar -xzf elasticsearch-7.9.3-linux-x86_64.tar.gz && \
+    cd elasticsearch-7.9.3/  && \
+    rm -rf /elasticsearch-7.9.3-linux-x86_64.tar.gz /elasticsearch-7.9.3-linux-x86_64.tar.gz.sha512  && \
+    useradd elastic  && \
+    chown -R elastic /elasticsearch-7.9.3/
+ENTRYPOINT ["/elasticsearch-7.9.3/bin/elasticsearch"]
+CMD ["-Enode.name=netology_test"]
+```
+**Ссылка на образ [https://hub.docker.com/r/olegananyev/netology-elasticsearch](https://hub.docker.com/r/olegananyev/netology-elasticsearch)**
+
+```
+docker run -di --name netology-elastic --user elastic -p 9200:9200 netology-elasticsearch:1.0
+docker exec -it netology-elastic curl localhost:9200
+
+04:17:51 hawk@ubuntu-server netology-elasticsearch → docker exec -it netology-elastic curl localhost:9200
+{
+  "name" : "netology_test",
+  "cluster_name" : "elasticsearch",
+  "cluster_uuid" : "hEPLJxEpSOSIDFgawbMmhw",
+  "version" : {
+    "number" : "7.9.3",
+    "build_flavor" : "default",
+    "build_type" : "tar",
+    "build_hash" : "c4138e51121ef06a6404866cddc601906fe5c868",
+    "build_date" : "2020-10-16T10:36:16.141335Z",
+    "build_snapshot" : false,
+    "lucene_version" : "8.6.2",
+    "minimum_wire_compatibility_version" : "6.8.0",
+    "minimum_index_compatibility_version" : "6.0.0-beta1"
+  },
+  "tagline" : "You Know, for Search"
+}
+```
 Далее мы будем работать с данным экземпляром elasticsearch.
 
 ## Задача 2
