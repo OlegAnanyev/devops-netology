@@ -45,8 +45,9 @@ RUN yum check-update && \
 ENTRYPOINT ["/elasticsearch-7.9.3/bin/elasticsearch"]
 CMD ["-Enode.name=netology_test"]
 ```
-**Ссылка на образ [https://hub.docker.com/r/olegananyev/netology-elasticsearch](https://hub.docker.com/r/olegananyev/netology-elasticsearch)**
+**Ссылка на образ: [https://hub.docker.com/r/olegananyev/netology-elasticsearch](https://hub.docker.com/r/olegananyev/netology-elasticsearch)**
 
+**Проверка работоспособности:**
 ```
 docker run -di --name netology-elastic --user elastic -p 9200:9200 netology-elasticsearch:1.0
 docker exec -it netology-elastic curl localhost:9200
@@ -70,7 +71,6 @@ docker exec -it netology-elastic curl localhost:9200
   "tagline" : "You Know, for Search"
 }
 ```
-Далее мы будем работать с данным экземпляром elasticsearch.
 
 ## Задача 2
 
