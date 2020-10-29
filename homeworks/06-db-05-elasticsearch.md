@@ -273,7 +273,61 @@ green  open   test  3VF-mVQsT9-EBQ9_9jTXUw   1   0          0            0      
 
 **Приведите в ответе** список файлов в директории со `snapshot`ами.
 
+```
+[root@47fb9edd1ef1 /]# curl -X PUT "localhost:9200/_snapshot/netology_backup/snapshot_1?wait_for_completion=true&pretty"
+{
+  "snapshot" : {
+    "snapshot" : "snapshot_1",
+    "uuid" : "kIpJwigJShC2dAV0nfYXLg",
+    "version_id" : 7090399,
+    "version" : "7.9.3",
+    "indices" : [
+      "test"
+    ],
+    "data_streams" : [ ],
+    "include_global_state" : true,
+    "state" : "SUCCESS",
+    "start_time" : "2020-10-29T16:11:07.252Z",
+    "start_time_in_millis" : 1603987867252,
+    "end_time" : "2020-10-29T16:11:07.452Z",
+    "end_time_in_millis" : 1603987867452,
+    "duration_in_millis" : 200,
+    "failures" : [ ],
+    "shards" : {
+      "total" : 1,
+      "failed" : 0,
+      "successful" : 1
+    }
+  }
+}
+
+
+[root@47fb9edd1ef1 snapshots]# ls
+index-0  index.latest  indices  meta-kIpJwigJShC2dAV0nfYXLg.dat  snap-kIpJwigJShC2dAV0nfYXLg.dat
+```
+
+
 Удалите индекс `test` и создайте индекс `test-2`. **Приведите в ответе** список индексов.
+```
+Удаляем индекс test:
+curl -X DELETE "localhost:9200/test?pretty"
+
+Создаём индекс test-2
+curl -X PUT "localhost:9200/test-2?pretty" -H 'Content-Type: application/json' -d'
+{
+  "settings": {
+    "index": {
+      "number_of_shards": 1,  
+      "number_of_replicas": 0 
+    }
+  }
+}
+'
+Смотрим список индексов:
+[root@47fb9edd1ef1 snapshots]# curl 'localhost:9200/_cat/indices?v'
+health status index  uuid                   pri rep docs.count docs.deleted store.size pri.store.size
+green  open   test-2 KtCGsIfxQsWTXCvTsQO-7g   1   0          0            0       208b           208b
+```
 
 [Восстановите](https://www.elastic.co/guide/en/elasticsearch/reference/current/snapshots-restore-snapshot.html) состояние
 кластера `elasticsearch` из `snapshot`, созданного ранее. 
