@@ -333,6 +333,14 @@ green  open   test-2 KtCGsIfxQsWTXCvTsQO-7g   1   0          0            0     
 кластера `elasticsearch` из `snapshot`, созданного ранее. 
 
 **Приведите в ответе** запрос к API восстановления и итоговый список индексов.
+```
+Восстановимся из снапшота:
+curl -X POST "localhost:9200/_snapshot/netology_backup/snapshot_1/_restore?pretty"
+Смотрим список индексов:
+[root@47fb9edd1ef1 snapshots]# curl 'localhost:9200/_cat/indices?v'
+health status index  uuid                   pri rep docs.count docs.deleted store.size pri.store.size
+green  open   test-2 KtCGsIfxQsWTXCvTsQO-7g   1   0          0            0       208b           208b
+green  open   test   oRnhAcBhQGm80ZdcOkiV2A   1   0          0            0       208b           208b
 
-Подсказки:
-- возможно вам понадобится доработать `elasticsearch.yml` в части директивы `path.repo` и перезапустить `elasticsearch`
+Вижу, что в наличии и индекс test из бэкапа, и индекс test-2, значит восстановление из снапшота не удаляет индексы, созданные после бэкапа.
+```
