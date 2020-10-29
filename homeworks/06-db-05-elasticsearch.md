@@ -247,6 +247,26 @@ docker restart netology-elastic
 ```
 
 Создайте индекс `test` с 0 реплик и 1 шардом и **приведите в ответе** список индексов.
+```
+[root@47fb9edd1ef1 /]# curl -X PUT "localhost:9200/test?pretty" -H 'Content-Type: application/json' -d'
+> {
+>   "settings": {
+>     "index": {
+>       "number_of_shards": 1,
+>       "number_of_replicas": 0
+>     }
+>   }
+> }
+> '
+{
+  "acknowledged" : true,
+  "shards_acknowledged" : true,
+  "index" : "test"
+}
+[root@47fb9edd1ef1 /]# curl 'localhost:9200/_cat/indices?v'
+health status index uuid                   pri rep docs.count docs.deleted store.size pri.store.size
+green  open   test  3VF-mVQsT9-EBQ9_9jTXUw   1   0          0            0       208b           208b
+```
 
 [Создайте `snapshot`](https://www.elastic.co/guide/en/elasticsearch/reference/current/snapshots-take-snapshot.html) 
 состояния кластера `elasticsearch`.
