@@ -186,6 +186,66 @@ yellow open   ind-2 gl1PnbwVSj26B7cafEB9ng   2   1          0            0      
 
 **Приведите в ответе** запрос API и результат вызова API для создания репозитория.
 
+```
+[elastic@47fb9edd1ef1 elasticsearch-7.9.3]$ mkdir /elasticsearch-7.9.3/snapshots
+[elastic@47fb9edd1ef1 elasticsearch-7.9.3]$ ls
+LICENSE.txt  NOTICE.txt  README.asciidoc  bin  config  data  jdk  lib  logs  modules  plugins  snapshots
+
+curl -X PUT "localhost:9200/_snapshot/netology_backup?pretty" -H 'Content-Type: application/json' -d'
+{
+  "type": "fs",
+  "settings": {
+    "location": "/elasticsearch-7.9.3/snapshots"
+  }
+}
+'
+
+Получаем ошибку:
+
+{
+  "error" : {
+    "root_cause" : [
+      {
+        "type" : "repository_exception",
+        "reason" : "[netology_backup] location [/elasticsearch-7.9.3/snapshots] doesn't match any of the locations specified by path.repo because this setting is empty"
+      }
+    ],
+    "type" : "repository_exception",
+    "reason" : "[netology_backup] failed to create repository",
+    "caused_by" : {
+      "type" : "repository_exception",
+      "reason" : "[netology_backup] location [/elasticsearch-7.9.3/snapshots] doesn't match any of the locations specified by path.repo because this setting is empty"
+    }
+  },
+  "status" : 500
+}
+
+Добавим свежесозданный каталог в директиву path.repo конфига Эластика.
+
+docker exec -it -u root:root netology-elastic bash
+[root@47fb9edd1ef1 /]# yum install nano
+[root@47fb9edd1ef1 /]# nano /elasticsearch-7.9.3/config/elasticsearch.yml
+
+Добавим строку:
+path.repo: ["/elasticsearch-7.9.3/snapshots"]
+
+Перезапустим контейнер:
+docker restart netology-elastic
+
+Регистрируем директорию:
+[root@47fb9edd1ef1 /]# curl -X PUT "localhost:9200/_snapshot/netology_backup?pretty" -H 'Content-Type: application/json' -d'
+> {
+>   "type": "fs",
+>   "settings": {
+>     "location": "/elasticsearch-7.9.3/snapshots"
+>   }
+> }
+> '
+{
+  "acknowledged" : true
+}
+```
+
 Создайте индекс `test` с 0 реплик и 1 шардом и **приведите в ответе** список индексов.
 
 [Создайте `snapshot`](https://www.elastic.co/guide/en/elasticsearch/reference/current/snapshots-take-snapshot.html) 
