@@ -62,6 +62,7 @@ InterfaceError: (InterfaceError) 2013: Lost connection to MySQL server during qu
 ```
 
 Как вы думаете, почему это начало происходить и как локализовать проблему?
+
 Какие пути решения данной проблемы вы можете предложить?
 ```
 Видимо возникновение проблемы связано с тем, что какая-то из таблиц в БД слишком разрослась
@@ -70,6 +71,14 @@ InterfaceError: (InterfaceError) 2013: Lost connection to MySQL server during qu
 предмет оптимизации осуществляемых запросов. Если оптимизировать запросы невозможно, следует
 увеличить значение параметра net_read_timeout со стандартных 30 с. до значения, при котором
 запросы будут успевать обрабатываться.
+Чтобы понять, какая таблица вызывает проблемы, можно использовать такой запрос, он покажет
+размер всех таблиц в мегабайтах:
+SELECT 
+    table_name AS `Table`, 
+    round(((data_length + index_length) / 1024 / 1024), 2) `Size in MB` 
+FROM information_schema.TABLES 
+WHERE table_schema = "$DB_NAME"
+    AND table_name = "$TABLE_NAME";
 ```
 ## Задача 4
 
