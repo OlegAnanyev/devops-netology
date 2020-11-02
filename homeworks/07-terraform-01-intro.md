@@ -61,3 +61,27 @@ Terraform v0.13.5
 
 В виде результата этой задачи приложите вывод `--version` двух версий терраформа доступных на вашем компьютере 
 или виртуальной машине.
+
+```
+#создадим каталог для 12-й версии
+mkdir /home/hawk/terraform/12
+#скачаем архив с бинарником 12-й версии
+wget https://releases.hashicorp.com/terraform/0.12.20/terraform_0.12.20_linux_amd64.zip
+#распакуем и удалим архив
+unzip terraform_0.12.20_linux_amd64.zip
+rm terraform_0.12.20_linux_amd64.zip
+
+#для удобства вызова 12-й версии создадим симлинк и сделаем исполняемым
+sudo ln -s /home/hawk/terraform/12/terraform /usr/bin/terraform12
+sudo chmod ugo+x /usr/bin/terraform12
+
+
+#проверим вызов свежей версии (13-й) и 12-й
+11:58:31 hawk@ubuntu-server 12 → terraform -v
+Terraform v0.13.5
+11:58:36 hawk@ubuntu-server 12 → terraform12 -v
+Terraform v0.12.20
+
+Your version of Terraform is out of date! The latest version
+is 0.13.5. You can update by downloading from https://www.terraform.io/downloads.html
+``
