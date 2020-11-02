@@ -77,9 +77,9 @@ sudo chmod ugo+x /usr/bin/terraform12
 
 
 #проверим вызов свежей версии (13-й) и 12-й
-11:58:31 hawk@ubuntu-server 12 → terraform -v
+$ terraform -v
 Terraform v0.13.5
-11:58:36 hawk@ubuntu-server 12 → terraform12 -v
+$ terraform12 -v
 Terraform v0.12.20
 
 Your version of Terraform is out of date! The latest version
