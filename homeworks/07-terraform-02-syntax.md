@@ -57,6 +57,21 @@ secret_key     ****************eNH8              env
     * Идентификатор подсети в которой создан инстанс.  
 1. Если вы выполнили первый пункт, то добейтесь того, что бы команда `terraform plan` выполнялась без ошибок. 
 
+```
+03:32:33 hawk@ubuntu-server terraform ±|master ✗|→ terraform plan
+************************************
+***тут длинный вывод пропускаем*****
+************************************
+Plan: 1 to add, 0 to change, 0 to destroy.
+
+------------------------------------------------------------------------
+
+Note: You didn't specify an "-out" parameter to save this plan, so Terraform
+can't guarantee that exactly these actions will be performed if
+"terraform apply" is subsequently run.
+
+```
+
 
 В качестве результата задания предоставьте:
 1. Ответ на вопрос: при помощи какого инструмента (из разобранных на прошлом занятии) можно создать свой образ ami?
