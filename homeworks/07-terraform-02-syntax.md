@@ -80,7 +80,4 @@ can't guarantee that exactly these actions will be performed if
 А вообще для подготовки AMI на базе Windows есть EC2Config, использующий встроенное виндовое средство Sysprep.
 ```
 1. Ссылку на репозиторий с исходной конфигурацией терраформа.
-```
-[https://github.com/OlegAnanyev/devops-netology/tree/master/terraform](https://github.com/OlegAnanyev/devops-netology/tree/master/terraform)
-```
- 
+[https://github.com/OlegAnanyev/devops-netology/tree/master/terraform](https://github.com/OlegAnanyev/devops-netology/tree/master/terraform) 
