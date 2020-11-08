@@ -82,5 +82,20 @@ can't guarantee that exactly these actions will be performed if
 1. Ссылку на репозиторий с исходной конфигурацией терраформа.
 
 [https://github.com/OlegAnanyev/devops-netology/tree/master/terraform](https://github.com/OlegAnanyev/devops-netology/tree/master/terraform)
+
+```
+Apply complete! Resources: 1 added, 0 changed, 0 destroyed.
+
+Outputs:
+
+account_id = 016202594952
+caller_arn = arn:aws:iam::016202594952:user/Ubuntu_Server_RIO
+private_ip = 172.31.0.5
+public_ip = 13.48.49.0
+region = eu-north-1
+subnet_id = subnet-1f41b152
+user_id = AIDAQHRN77KECMF6ZRORQ
+```
+
 ![Запущенный через Terraform инстанс](https://raw.githubusercontent.com/OlegAnanyev/devops-netology/master/homeworks/07-terraform-02-syntax.png)
 
