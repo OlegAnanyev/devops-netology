@@ -57,6 +57,69 @@ secret_key     ****************eNH8              env
     * Идентификатор подсети в которой создан инстанс.  
 1. Если вы выполнили первый пункт, то добейтесь того, что бы команда `terraform plan` выполнялась без ошибок. 
 
+```
+03:32:02 hawk@ubuntu-server terraform ±|master ✗|→ terraform init
+Initializing the backend...
+
+Initializing provider plugins...
+- Finding hashicorp/aws versions matching "~> 3.0"...
+- Installing hashicorp/aws v3.14.1...
+- Installed hashicorp/aws v3.14.1 (signed by HashiCorp)
+
+Terraform has been successfully initialized!
+
+You may now begin working with Terraform. Try running "terraform plan" to see
+any changes that are required for your infrastructure. All Terraform commands
+should now work.
+
+If you ever set or change modules or backend configuration for Terraform,
+rerun this command to reinitialize your working directory. If you forget, other
+commands will detect it and remind you to do so if necessary.
+03:32:33 hawk@ubuntu-server terraform ±|master ✗|→ terraform plan
+Refreshing Terraform state in-memory prior to plan...
+The refreshed state will be used to calculate this plan, but will not be
+persisted to local or remote state storage.
+
+data.aws_region.current: Refreshing state...
+data.aws_caller_identity.current: Refreshing state...
+data.aws_ami.ubuntu: Refreshing state...
+
+------------------------------------------------------------------------
+
+An execution plan has been generated and is shown below.
+Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # aws_instance.netology will be created
+  + resource "aws_instance" "netology" {
+      + ami                                  = "ami-0a3a4169ad7cb0d77"
+      + arn                                  = (known after apply)
+      + associate_public_ip_address          = true
+      + availability_zone                    = (known after apply)
+      + cpu_core_count                       = 1
+      + cpu_threads_per_core                 = 1
+      + disable_api_termination              = false
+...
+...
+...
+          + kms_key_id            = (known after apply)
+          + volume_id             = (known after apply)
+          + volume_size           = (known after apply)
+          + volume_type           = (known after apply)
+        }
+    }
+
+Plan: 1 to add, 0 to change, 0 to destroy.
+
+------------------------------------------------------------------------
+
+Note: You didn't specify an "-out" parameter to save this plan, so Terraform
+can't guarantee that exactly these actions will be performed if
+"terraform apply" is subsequently run.
+```
+
 
 В качестве результата задания предоставьте:
 1. Ответ на вопрос: при помощи какого инструмента (из разобранных на прошлом занятии) можно создать свой образ ami?
