@@ -9,8 +9,6 @@
 а можно использовать созданного в рамках предыдущего задания, просто добавьте ему необходимы права, как описано 
 [здесь](https://www.terraform.io/docs/backends/types/s3.html).
 1. Зарегистрируйте бэкэнд в терраформ проекте как описано по ссылке выше. 
-![Бакет с бэкендом терраформа](https://raw.githubusercontent.com/OlegAnanyev/devops-netology/master/homeworks/07-terraform-03-basic-02.png)
-
 
 ## Задача 2. Инициализируем проект и создаем воркспейсы. 
 
@@ -480,3 +478,4 @@ can't guarantee that exactly these actions will be performed if
 
 ```
 ![Результат после выполнения](https://raw.githubusercontent.com/OlegAnanyev/devops-netology/master/homeworks/07-terraform-03-basic.png)
+![Бакет с бэкендом терраформа](https://raw.githubusercontent.com/OlegAnanyev/devops-netology/master/homeworks/07-terraform-03-basic-02.png)
