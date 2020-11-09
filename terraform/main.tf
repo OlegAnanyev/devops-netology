@@ -28,7 +28,8 @@ resource "aws_instance" "netology" {
   // из какого образа создать инстанс
   ami = data.aws_ami.ubuntu.id
   // тип инстанса
-  instance_type = "t2.micro"
+  instance_type = "t3.micro"
+
 
   // хотим строго 1 ядро
   cpu_core_count = 1
@@ -46,12 +47,11 @@ resource "aws_instance" "netology" {
   private_ip = "172.31.0.5"
   // следить, проходит ли сетевой трафик на инстанс
   source_dest_check = true
-  // разрешим инстансу гибернацию
-  hibernation = true
   // назначим тэг
   tags = {
     Name = "Hello_Netology"
   }
+
 }
 
 //
