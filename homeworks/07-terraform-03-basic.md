@@ -478,3 +478,4 @@ can't guarantee that exactly these actions will be performed if
 "terraform apply" is subsequently run.
 
 ```
+![Результат после выполнения](https://raw.githubusercontent.com/OlegAnanyev/devops-netology/master/homeworks/07-terraform-03-basic.png)
