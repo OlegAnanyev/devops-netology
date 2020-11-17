@@ -34,6 +34,12 @@
 
 В качестве результата приложите ссылку на файлы `server.yaml` и `atlantis.yaml`.
 
+-------------
+
+https://github.com/OlegAnanyev/devops-netology/blob/master/homeworks/07-terraform-04-teamwork_atlantis.yaml
+https://github.com/OlegAnanyev/devops-netology/blob/master/homeworks/07-terraform-04-teamwork_server.yaml
+
+
 ## Задача 3. Знакомство с каталогом модулей. 
 
 1. В [каталоге модулей](https://registry.terraform.io/browse/modules) найдите официальный модуль от aws для создания
