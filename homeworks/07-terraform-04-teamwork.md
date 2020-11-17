@@ -49,9 +49,35 @@ https://github.com/OlegAnanyev/devops-netology/blob/master/homeworks/07-terrafor
 
 1. В [каталоге модулей](https://registry.terraform.io/browse/modules) найдите официальный модуль от aws для создания
 `ec2` инстансов. 
+```
+https://registry.terraform.io/modules/terraform-aws-modules/ec2-instance/aws/latest
+```
 2. Изучите как устроен модуль. Задумайтесь, будете ли в своем проекте использовать этот модуль или непосредственно 
 ресурс `aws_instance` без помощи модуля?
+```
+На мой взгляд данный модуль не даёт заметных преимуществ по сравнению с использованием ресурса aws_instance напрямую, поэтому я предпочёл бы обойтись без него.
+```
 3. В рамках предпоследнего задания был создан ec2 при помощи ресурса `aws_instance`. 
 Создайте аналогичный инстанс при помощи найденного модуля.   
 
 В качестве результата задания приложите ссылку на созданный блок конфигураций. 
+
+--------------
+https://github.com/OlegAnanyev/devops-netology/tree/master/terraform
+
+```
+module "ec2_cluster" {
+  source                 = "terraform-aws-modules/ec2-instance/aws"
+  version                = "~> 2.0"
+  name                   = "my-netology-cluster"
+  instance_count         = 1
+  ami                    = data.aws_ami.ubuntu.id
+  instance_type          = "t3.micro"
+  monitoring             = false
+  subnet_id              = "subnet-eddcdzz4"
+  tags = {
+    Terraform   = "true"
+    Environment = "dev-netology"
+  }
+}
+```
