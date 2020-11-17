@@ -14,6 +14,8 @@
 
 В качестве результата задания приложите снимок экрана с успешным применением конфигурации.
 
+![Plan & Apply](https://raw.githubusercontent.com/OlegAnanyev/devops-netology/master/homeworks/07-terraform-04-teamwork_1.png)
+
 ## Задача 2. Написать серверный конфиг для атлантиса. 
 
 Смысл задания – познакомиться с документацией 
