@@ -1,0 +1,31 @@
+version: 3
+automerge: true
+
+projects:
+- name: my-project-name-netology
+  dir: .
+  workspace: stage
+  dir: .
+  workspace: prod
+
+  terraform_version: v0.13.5
+  autoplan:
+    when_modified: ["*.tf"]
+    enabled: true
+  apply_requirements: [mergeable, approved]
+  workflow: mynetologyworkflow
+
+workflows:
+  mynetologyworkflow:
+    plan:
+      steps:
+      - run: echo plan started
+      - init
+      - plan:
+          extra_args: ["-lock", "false"]
+      - run: echo plan finished
+    apply:
+      steps:
+      - run: echo apply started
+      - apply
+      - run: echo apply finished      

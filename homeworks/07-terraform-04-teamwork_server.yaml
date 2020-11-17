@@ -1,0 +1,21 @@
+repos:
+- id: /github.com\/OlegAnanyev\/.*/
+  apply_requirements: [approved, mergeable]
+  workflow: mynetologyworkflow
+  allowed_overrides: [apply_requirements, workflow]
+  allow_custom_workflows: true
+
+workflows:
+  mynetologyworkflow:
+    plan:
+      steps:
+      - run: echo plan started
+      - init
+      - plan:
+          extra_args: ["-lock", "false"]
+      - run: echo plan finished
+    apply:
+      steps:
+      - run: echo apply started
+      - apply
+      - run: echo apply finished      
