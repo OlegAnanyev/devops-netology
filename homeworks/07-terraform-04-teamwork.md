@@ -13,8 +13,10 @@
 1. Выполните plan и apply. 
 
 В качестве результата задания приложите снимок экрана с успешным применением конфигурации.
+-------------
 
 ![Plan & Apply](https://raw.githubusercontent.com/OlegAnanyev/devops-netology/master/homeworks/07-terraform-04-teamwork_1.png)
+-------------
 
 ## Задача 2. Написать серверный конфиг для атлантиса. 
 
@@ -39,6 +41,7 @@
 https://github.com/OlegAnanyev/devops-netology/blob/master/homeworks/07-terraform-04-teamwork_atlantis.yaml
 https://github.com/OlegAnanyev/devops-netology/blob/master/homeworks/07-terraform-04-teamwork_server.yaml
 
+-------------
 
 ## Задача 3. Знакомство с каталогом модулей. 
 
