@@ -24,6 +24,25 @@ data "aws_ami" "ubuntu" {
   owners = ["099720109477"] # Canonical
 }
 
+module "ec2_cluster" {
+  source                 = "terraform-aws-modules/ec2-instance/aws"
+  version                = "~> 2.0"
+
+  name                   = "my-netology-cluster"
+  instance_count         = 1
+
+  ami                    = data.aws_ami.ubuntu.id
+  instance_type          = "t3.micro"
+  monitoring             = false
+  subnet_id              = "subnet-eddcdzz4"
+
+  tags = {
+    Terraform   = "true"
+    Environment = "dev-netology"
+  }
+}
+
+
 resource "aws_instance" "netology" {
   // из какого образа создать инстанс
   ami = data.aws_ami.ubuntu.id
