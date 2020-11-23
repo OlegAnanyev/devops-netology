@@ -24,20 +24,22 @@ go version go1.15.5 linux/amd64
 1. Напишите программу для перевода метров в футы (1 фут = 0.3048 метр). Можно запросить исходные данные 
 у пользователя, а можно статически задать в коде.
     Для взаимодействия с пользователем можно использовать функцию `Scanf`:
-    ```
-    package main
-    
-    import "fmt"
-    
-    func main() {
-        fmt.Print("Enter a number: ")
-        var input float64
-        fmt.Scanf("%f", &input)
-    
-        output := input * 2
-    
-        fmt.Println(output)    
-    }
+    ``` go
+package main
+import "fmt"
+
+func main() {
+	fmt.Print("Введите расстояние в метрах:")
+	var metr float64
+	fmt.Scanf("%f", &metr )
+	metr = 2
+ 
+	var foot float64
+	foot = metr / 0.3048
+
+	fmt.Println("\nВ футах это будет: ")
+	fmt.Println(foot)  
+}
     ```
  
 1. Напишите программу, которая найдет наименьший элемент в любом заданном списке, например:
