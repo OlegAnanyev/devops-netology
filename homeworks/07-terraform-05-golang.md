@@ -40,7 +40,6 @@ func main() {
 	fmt.Print("Введите расстояние в метрах:")
 	var metr float64
 	fmt.Scanf("%f", &metr )
-	metr = 2
  
 	var foot float64
 	foot = metr / 0.3048
