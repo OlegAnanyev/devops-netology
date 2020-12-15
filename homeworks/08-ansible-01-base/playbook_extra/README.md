@@ -1,4 +1,4 @@
-# Результат выполнения плейбука
+# Результат выполнения скрипта
 ```bash
 10:02:39 hawk@ubuntu-server playbook_extra ±|master ✗|→ ./go.sh
 d2d877a1dd6e648fcf15ce3f7b507507b89f09948006bc495296ded5eb7cb343
