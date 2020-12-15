@@ -1,81 +1,57 @@
 # Результат выполнения плейбука
 ```bash
-09:02:43 hawk@ubuntu-server playbook ±|master ✗|→ ansible-playbook -i inventory/prod.yml --ask-pass --ask-vault-pass site.yml
-SSH password:
-Vault password:
+10:02:39 hawk@ubuntu-server playbook_extra ±|master ✗|→ ./go.sh
+d2d877a1dd6e648fcf15ce3f7b507507b89f09948006bc495296ded5eb7cb343
+701e2123436f0a7f45f820dba77809247684a849d1606f8b0cb669e53a913d9b
+a76657cc978ae093dbd8ffa6b0bc2a674997d47fffb94c58a9918ba54dacdc27
 
-PLAY [Print os facts] *************************
+PLAY [Print os facts] ************************************************************************
 
-TASK [Gathering Facts] *************************
+TASK [Gathering Facts] ************************************************************************
 ok: [localhost]
-ok: [ubuntu]
+ok: [fedora]
 ok: [centos7]
+[DEPRECATION WARNING]: Distribution Ubuntu 18.04 on host ubuntu should use /usr/bin/python3, but is using /usr/bin/python for backward compatibility with prior Ansible releases. A future Ansible release will default to
+using the discovered platform python for this host. See https://docs.ansible.com/ansible/2.10/reference_appendices/interpreter_discovery.html for more information. This feature will be removed in version 2.12. Deprecation
+warnings can be disabled by setting deprecation_warnings=False in ansible.cfg.
+ok: [ubuntu]
 
-TASK [Print OS] *************************
-ok: [centos7] => {
-    "msg": "CentOS"
+TASK [Print OS] ************************************************************************
+ok: [localhost] => {
+    "msg": "Ubuntu"
 }
 ok: [ubuntu] => {
     "msg": "Ubuntu"
 }
-ok: [localhost] => {
-    "msg": "Ubuntu"
+ok: [centos7] => {
+    "msg": "CentOS"
+}
+ok: [fedora] => {
+    "msg": "Fedora"
 }
 
-TASK [Print fact] *************************
+TASK [Print fact] ************************************************************************
+ok: [localhost] => {
+    "msg": "all default fact"
+}
 ok: [centos7] => {
     "msg": "el default fact"
+}
+ok: [fedora] => {
+    "msg": "fed default fact"
 }
 ok: [ubuntu] => {
     "msg": "deb default fact"
 }
-ok: [localhost] => {
-    "msg": "all default fact"
-}
 
-PLAY RECAP *************************
+PLAY RECAP ************************************************************************
 centos7                    : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+fedora                     : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 localhost                  : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 ubuntu                     : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
 
-```
+ubuntu
+centos7
+fedora
 
-# Самоконтроль выполненения задания
-
-1. Где расположен файл с `some_fact` из второго пункта задания?
-```bash
-playbook/group_vars/all/examp.yml
-```
-2. Какая команда нужна для запуска вашего `playbook` на окружении `test.yml`?
-```bash
-ansible-playbook -i inventory/test.yml site.yml
-```
-3. Какой командой можно зашифровать файл?
-```bash
-ansible-vault encrypt examp.yml
-```
-4. Какой командой можно расшифровать файл?
-```bash
-ansible-vault decrypt examp.yml
-```
-5. Можно ли посмотреть содержимое зашифрованного файла без команды расшифровки файла? Если можно, то как?
-```bash
-ansible-vault view examp.yml
-```
-6. Как выглядит команда запуска `playbook`, если переменные зашифрованы?
-
-```bash
-ansible-playbook -i inventory/prod.yml --ask-pass --ask-vault-pass site.yml
-```
-7. Как называется модуль подключения к host на windows?
-```bash
-winrm
-```
-8. Приведите полный текст команды для поиска информации в документации ansible для модуля подключений ssh
-```bash
-ansible-doc -t connection ssh
-```
-9. Какой параметр из модуля подключения `ssh` необходим для того, чтобы определить пользователя, под которым необходимо совершать подключение?
-```bash
-remote_user
 ```
