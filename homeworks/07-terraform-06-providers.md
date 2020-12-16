@@ -17,14 +17,20 @@
     * С каким другим параметром конфликтует `name`? Приложите строчку кода, в которой это указано.
     ```
     name_prefix
+    
+    https://github.com/hashicorp/terraform-provider-aws/blob/1776cbf7cac4a821fcc3aebe06fc52845aab4e11/aws/resource_aws_sqs_queue.go#L56
     ```
     * Какая максимальная длина имени? 
     ```
     80 символов
+    
+    https://github.com/hashicorp/terraform-provider-aws/blob/1776cbf7cac4a821fcc3aebe06fc52845aab4e11/aws/validators.go#L1031
     ```
     * Какому регулярному выражению должно подчиняться имя? 
     ```
     ^[0-9A-Za-z-_]+$
+    
+    https://github.com/hashicorp/terraform-provider-aws/blob/1776cbf7cac4a821fcc3aebe06fc52845aab4e11/aws/validators.go#L1035
     ```
 
 ## Задача 2. (Не обязательно) 
