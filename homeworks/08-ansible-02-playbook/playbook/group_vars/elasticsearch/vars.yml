@@ -1,0 +1,4 @@
+---
+  elastic_version: "7.10.1"
+  elastic_home: "/opt/elastic/{{ elastic_version }}"
+  elastic_package: "elasticsearch-7.10.1-linux-x86_64.tar.gz"

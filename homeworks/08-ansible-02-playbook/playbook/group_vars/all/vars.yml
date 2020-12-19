@@ -1,0 +1,4 @@
+---
+  java_jdk_version: "15.0.1"
+  java_home: "/opt/jdk/{{ java_jdk_version }}"  
+  java_oracle_jdk_package: "jdk-15.0.1_linux-x64_bin.tar.gz"

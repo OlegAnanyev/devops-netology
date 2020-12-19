@@ -1,0 +1,4 @@
+---
+  kibana_version: "7.10.1"
+  kibana_home: "/opt/kibana/{{ kibana_version }}"
+  kibana_package: "kibana-7.10.1-linux-x86_64.tar.gz"

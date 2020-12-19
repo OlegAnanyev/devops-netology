@@ -1,0 +1,142 @@
+---
+###Java###   
+  - name: Install Java
+    hosts: all
+    tasks:
+      - name: Upload .tar.gz file containing binaries from local storage
+        copy:
+          src: "{{ java_oracle_jdk_package }}"
+          dest: "/tmp/jdk-{{ java_jdk_version }}.tar.gz"
+        register: download_java_binaries
+        until: download_java_binaries is succeeded
+        tags: java
+      - name: Ensure installation dir exists
+        become: true
+        file:
+          state: directory
+          path: "{{ java_home }}"
+        tags: java
+      - name: Extract java in the installation directory
+        become: true
+        unarchive:
+          copy: false
+          src: "/tmp/jdk-{{ java_jdk_version }}.tar.gz"
+          dest: "{{ java_home }}"
+          extra_opts: [--strip-components=1]
+          creates: "{{ java_home }}/bin/java"
+        tags:
+          - skip_ansible_lint
+          - java
+      - name: Export environment variables
+        become: true
+        template:
+          src: jdk.sh.j2
+          dest: /etc/profile.d/jdk.sh
+        tags: java
+###Elastic###        
+  - name: Install Elasticsearch
+    hosts: elasticsearch
+    tasks:
+      #эластик будем тоже брать из каталога /files, так быстрее
+      - name: Upload tar.gz Elasticsearch from local storage
+        copy:
+          src: "{{ elastic_package }}"
+          dest: "/tmp/elasticsearch-{{ elastic_version }}-linux-x86_64.tar.gz"
+        register: elastic_binaries
+        until: elastic_binaries is succeeded
+        tags: elastic
+
+      - name: Create directrory for Elasticsearch
+        become: true 
+        file:
+          state: directory
+          path: "{{ elastic_home }}"    
+        tags: elastic
+      - name: Extract Elasticsearch in the installation directory
+        become: true
+        unarchive:
+          copy: false
+          src: "/tmp/elasticsearch-{{ elastic_version }}-linux-x86_64.tar.gz"
+          dest: "{{ elastic_home }}"
+          extra_opts: [--strip-components=1]
+          creates: "{{ elastic_home }}/bin/elasticsearch"
+        #если эластика на хосте ещё не было и распаковка не скипается, тогда запустим хэндлер
+        # notify:
+        # - start elastic          
+        tags:
+          - skip_ansible_lint
+          - elastic
+      - name: Set environment Elastic
+        become: yes
+        template:
+          src: templates/elk.sh.j2
+          dest: /etc/profile.d/elk.sh
+        tags: elastic
+      #"завладеем" каталогом с эластиком, чтобы он нормально работал
+      - name: Recursively take ownership of a directory
+        become: yes
+        file:
+          path: "{{ elastic_home }}"
+          state: directory
+          recurse: yes
+          owner: "{{ ansible_user }}"
+          group: "{{ ansible_user }}"
+    #хэндлер для запуска эластика
+    # handlers:
+    #   - name: start elastic
+    #     command: "{{ elastic_home }}/bin/elasticsearch"          
+###Kibana###
+  - name: Install Kibana
+    hosts: all
+    tasks:
+      - name: Upload .tar.gz file containing binaries from local storage
+        copy:
+          src: "{{ kibana_package }}"
+          dest: "/tmp/kibana-{{ kibana_version }}-linux-x86_64.tar.gz"
+        register: download_kibana_binaries
+        until: download_kibana_binaries is succeeded
+        tags: kibana
+      - name: Ensure installation dir exists
+        become: true
+        file:
+          state: directory
+          path: "{{ kibana_home }}"
+        tags: kibana
+      - name: Extract kibana in the installation directory
+        become: true
+        unarchive:
+          copy: false
+          src: "/tmp/kibana-{{ kibana_version }}-linux-x86_64.tar.gz"
+          dest: "{{ kibana_home }}"
+          extra_opts: [--strip-components=1]
+          creates: "{{ kibana_home }}/bin/kibana"
+        #если кибаны на хосте ещё не было и распаковка не скипается, тогда запустим хэндлер
+        # notify:
+        # - start kibana
+        tags:
+          - skip_ansible_lint
+          - kibana
+      - name: Export environment variables
+        become: true
+        template:
+          src: kibana.sh.j2
+          dest: /etc/profile.d/kibana.sh
+        tags: kibana
+      #"завладеем" каталогом с кибаной, чтобы она нормально работала
+      - name: Recursively take ownership of a directory
+        become: yes      
+        file:
+          path: "{{ kibana_home }}"
+          state: directory
+          recurse: yes
+          owner: "{{ ansible_user }}"
+          group: "{{ ansible_user }}"
+      #разрешим доступ к кибане по ip сервера, а не только по localhost
+      - name: Make Kibana avalaible on any interface
+        lineinfile:
+          path: "{{ kibana_home }}/config/kibana.yml"
+          line: 'server.host: "0.0.0.0"'
+    #хэндлер для запуска кибаны
+    # handlers:
+    #   - name: start kibana
+    #     command: "{{ kibana_home }}/bin/kibana"
