@@ -81,3 +81,42 @@ SLI = (summ_2xx_requests + summ_3xx_requests)/(summ_all_requests)
 
 P.S.: количество собираемых метрик должно быть не менее 4-х.
 P.P.S.: по желанию можно себя не ограничивать только сбором метрик из `/proc`.
+
+```python
+from datetime import datetime, date, time
+import calendar
+import json
+
+log={}
+
+#получим unixtimestamp
+d = datetime.utcnow()
+log["timestamp"] = calendar.timegm(d.utctimetuple())
+
+f = open("/proc/loadavg", "r")
+log["cpu_loadavg"] = f.read()
+f.close()
+
+f = open("/proc/swaps", "r")
+swaps = f.readlines()
+log["swap"] = swaps[1]
+f.close()
+
+f = open("/proc/uptime", "r")
+log["uptime"] = f.read()
+f.close()
+
+f = open("/proc/meminfo", "r")
+meminfo = f.readlines()
+log["freemem"] = meminfo[1]
+f.close()
+
+json_log = json.dumps(log)
+
+# YY-MM-DD-awesome-monitoring.log
+# для удобства писать логи будем не в /var/log а прямо в каталог со скриптом
+filename = date.today().strftime('%y-%m-%d-awesome-monitoring.log')
+f = open(filename, "a")
+f.write(json_log+"\n")
+f.close()
+```
