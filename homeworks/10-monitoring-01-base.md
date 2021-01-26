@@ -82,6 +82,7 @@ SLI = (summ_2xx_requests + summ_3xx_requests)/(summ_all_requests)
 P.S.: количество собираемых метрик должно быть не менее 4-х.
 P.P.S.: по желанию можно себя не ограничивать только сбором метрик из `/proc`.
 
+Скрипт:
 ```python
 from datetime import datetime, date, time
 import calendar
@@ -119,4 +120,18 @@ filename = date.today().strftime('%y-%m-%d-awesome-monitoring.log')
 f = open(filename, "a")
 f.write(json_log+"\n")
 f.close()
+```
+
+Пример лога:
+```
+{"timestamp": 1611654776, "cpu_loadavg": "0.00 0.00 0.00 1/188 56313\n", "swap": "/swap.img file\t\t2097148\t28804\t-2\n", "uptime": "701180.26 2803562.16\n", "freemem": "MemFree:          139936 kB\n"}
+{"timestamp": 1611654780, "cpu_loadavg": "0.00 0.00 0.00 1/188 56322\n", "swap": "/swap.img file\t\t2097148\t28804\t-2\n", "uptime": "701184.76 2803580.08\n", "freemem": "MemFree:          140204 kB\n"}
+{"timestamp": 1611654781, "cpu_loadavg": "0.00 0.00 0.00 1/188 56331\n", "swap": "/swap.img file\t\t2097148\t28804\t-2\n", "uptime": "701185.64 2803582.92\n", "freemem": "MemFree:          139944 kB\n"}
+{"timestamp": 1611654782, "cpu_loadavg": "0.00 0.00 0.00 1/188 56340\n", "swap": "/swap.img file\t\t2097148\t28804\t-2\n", "uptime": "701186.30 2803586.07\n", "freemem": "MemFree:          140456 kB\n"}
+{"timestamp": 1611654782, "cpu_loadavg": "0.00 0.00 0.00 1/188 56349\n", "swap": "/swap.img file\t\t2097148\t28804\t-2\n", "uptime": "701186.93 2803588.46\n", "freemem": "MemFree:          139640 kB\n"}
+```
+
+Конфигурация cron:
+```
+* * * * * /usr/bin/python3 /home/hawk/share/python-logger/script.py
 ```
