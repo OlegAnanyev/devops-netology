@@ -29,12 +29,15 @@
 
 Решение домашнего задания - скриншот веб-интерфейса grafana со списком подключенных Datasource.
 
+![https://raw.githubusercontent.com/OlegAnanyev/devops-netology/master/homeworks/10-monitoring-03-grafana-1.png](https://raw.githubusercontent.com/OlegAnanyev/devops-netology/master/homeworks/10-monitoring-03-grafana-1.png)
+
 ## Задание 2
 Изучите самостоятельно ресурсы:
 - [promql-for-humans](https://timber.io/blog/promql-for-humans/#cpu-usage-by-instance)
 - [understanding prometheus cpu metrics](https://www.robustperception.io/understanding-machine-cpu-usage)
 
 Создайте Dashboard и в ней создайте следующие Panels:
+Для решения данного ДЗ приведите promql запросы для выдачи этих метрик, а также скриншот получившейся Dashboard.
 - Утилизация CPU для nodeexporter (в процентах, 100-idle)
 ```
 (((count(count(node_cpu_seconds_total{instance="$node",job="$job"}) by (cpu))) - avg(sum by (mode)(irate(node_cpu_seconds_total{mode='idle',instance="$node",job="$job"}[5m])))) * 100) / count(count(node_cpu_seconds_total{instance="$node",job="$job"}) by (cpu))
@@ -55,7 +58,7 @@ avg(node_load15{instance="$node",job="$job"}) /  count(count(node_cpu_seconds_to
 ```
 (node_filesystem_avail_bytes{instance="$node",job="$job",mountpoint="/",fstype!="rootfs"} * 100) / node_filesystem_size_bytes{instance="$node",job="$job",mountpoint="/",fstype!="rootfs"}
 ```
-Для решения данного ДЗ приведите promql запросы для выдачи этих метрик, а также скриншот получившейся Dashboard.
+![https://raw.githubusercontent.com/OlegAnanyev/devops-netology/master/homeworks/10-monitoring-03-grafana-2.png](https://raw.githubusercontent.com/OlegAnanyev/devops-netology/master/homeworks/10-monitoring-03-grafana-2.png)
 
 ## Задание 3
 Создайте для каждой Dashboard подходящее правило alert (можно обратиться к первой лекции в блоке "Мониторинг").
