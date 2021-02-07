@@ -47,9 +47,9 @@ pull:
 
 В виде решения на это упражнение приведите выводы команд с вашего компьютера (виртуальной машины):
 
-    - curl http://localhost:8086/ping
-    - curl http://localhost:8888
-    - curl http://localhost:9092/kapacitor/v1/ping
+curl http://localhost:8086/ping
+curl http://localhost:8888
+curl http://localhost:9092/kapacitor/v1/ping
 
 А также скриншот веб-интерфейса ПО chronograf (`http://localhost:8888`). 
 
