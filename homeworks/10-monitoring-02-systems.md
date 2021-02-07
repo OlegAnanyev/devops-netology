@@ -116,7 +116,7 @@ https://raw.githubusercontent.com/OlegAnanyev/devops-netology/master/homeworks/1
 После настройке перезапустите telegraf, обновите веб интерфейс и приведите скриншотом список `measurments` в 
 веб-интерфейсе базы telegraf.autogen . Там должны появиться метрики, связанные с docker.
 
-Факультативно можете изучить какие метрики собирает telegraf после выполнения данного задания.
+![https://raw.githubusercontent.com/OlegAnanyev/devops-netology/master/homeworks/10-monitoring-02-systems-tick-2.png](https://raw.githubusercontent.com/OlegAnanyev/devops-netology/master/homeworks/10-monitoring-02-systems-tick-2.png)
 
 ## Дополнительное задание (со звездочкой*) - необязательно к выполнению
 
