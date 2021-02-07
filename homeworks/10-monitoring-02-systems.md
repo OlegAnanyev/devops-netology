@@ -127,5 +127,4 @@ https://raw.githubusercontent.com/OlegAnanyev/devops-netology/master/homeworks/1
     - утилизации пространства на дисках
     - количество поднятых контейнеров
     - аптайм
-    - ...
-    - фантазируйте)
+![https://raw.githubusercontent.com/OlegAnanyev/devops-netology/master/homeworks/10-monitoring-02-systems-tick-4.png](https://raw.githubusercontent.com/OlegAnanyev/devops-netology/master/homeworks/10-monitoring-02-systems-tick-4.png)
