@@ -51,8 +51,6 @@ curl http://localhost:8086/ping
 curl http://localhost:8888
 curl http://localhost:9092/kapacitor/v1/ping
 
-А также скриншот веб-интерфейса ПО chronograf (`http://localhost:8888`). 
-
 ```bash
 01:34:57 hawk@ubuntu-server 1.3 ±|master|→ curl http://localhost:8086/ping
 01:35:04 hawk@ubuntu-server 1.3 ±|master|→ curl http://localhost:8888
@@ -67,6 +65,10 @@ curl http://localhost:9092/kapacitor/v1/ping
   <script type="text/javascript" src="/manifest.0b50876f6444e513725c.js"></script><script type="text/javascript" src="/vendor.36ee797884f822b1fbde.js"></script><script type="text/javascript" src="/app.3eec41dc0f57667d6ff4.js"></script></body>
 </html>
 01:35:09 hawk@ubuntu-server 1.3 ±|master|→ curl http://localhost:9092/kapacitor/v1/ping
+```
+А также скриншот веб-интерфейса ПО chronograf (`http://localhost:8888`). 
+```
+https://raw.githubusercontent.com/OlegAnanyev/devops-netology/master/homeworks/10-monitoring-02-systems-tick.png
 ```
 
 
