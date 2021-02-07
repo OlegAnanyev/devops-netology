@@ -68,7 +68,7 @@ curl http://localhost:9092/kapacitor/v1/ping
 ```
 А также скриншот веб-интерфейса ПО chronograf (`http://localhost:8888`). 
 
-![https://raw.githubusercontent.com/OlegAnanyev/devops-netology/master/homeworks/10-monitoring-02-systems-tick.png](https://raw.githubusercontent.com/OlegAnanyev/devops-netology/master/homeworks/10-monitoring-02-systems-tick.png =250x)
+![https://raw.githubusercontent.com/OlegAnanyev/devops-netology/master/homeworks/10-monitoring-02-systems-tick.png](https://raw.githubusercontent.com/OlegAnanyev/devops-netology/master/homeworks/10-monitoring-02-systems-tick.png)
 
 ```
 https://raw.githubusercontent.com/OlegAnanyev/devops-netology/master/homeworks/10-monitoring-02-systems-tick.png
