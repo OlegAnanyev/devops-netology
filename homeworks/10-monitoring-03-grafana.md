@@ -58,12 +58,16 @@ avg(node_load15{instance="$node",job="$job"}) /  count(count(node_cpu_seconds_to
 ```
 (node_filesystem_avail_bytes{instance="$node",job="$job",mountpoint="/",fstype!="rootfs"} * 100) / node_filesystem_size_bytes{instance="$node",job="$job",mountpoint="/",fstype!="rootfs"}
 ```
+Была такая красота:
 ![https://raw.githubusercontent.com/OlegAnanyev/devops-netology/master/homeworks/10-monitoring-03-grafana-2.png](https://raw.githubusercontent.com/OlegAnanyev/devops-netology/master/homeworks/10-monitoring-03-grafana-2.png)
-
+Но оказалось, что к таким панелям нельзя привязать алерты, поэтому сделал так:
+![https://raw.githubusercontent.com/OlegAnanyev/devops-netology/master/homeworks/10-monitoring-03-grafana-3.png](https://raw.githubusercontent.com/OlegAnanyev/devops-netology/master/homeworks/10-monitoring-03-grafana-3.png)
 ## Задание 3
 Создайте для каждой Dashboard подходящее правило alert (можно обратиться к первой лекции в блоке "Мониторинг").
 
 Для решения ДЗ - приведите скриншот вашей итоговой Dashboard.
+![https://raw.githubusercontent.com/OlegAnanyev/devops-netology/master/homeworks/10-monitoring-03-grafana-4.png](https://raw.githubusercontent.com/OlegAnanyev/devops-netology/master/homeworks/10-monitoring-03-grafana-4.png)
+![https://raw.githubusercontent.com/OlegAnanyev/devops-netology/master/homeworks/10-monitoring-03-grafana-3.png](https://raw.githubusercontent.com/OlegAnanyev/devops-netology/master/homeworks/10-monitoring-03-grafana-3.png)
 
 ## Задание 4
 Сохраните ваш Dashboard.
