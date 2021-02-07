@@ -25,6 +25,9 @@ pull:
 
     - Prometheus 
     - TICK
+    ```
+    push
+    ```
     - Zabbix
     - VictoriaMetrics
     - Nagios
