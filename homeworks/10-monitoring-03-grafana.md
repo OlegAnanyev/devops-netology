@@ -40,23 +40,23 @@
 Для решения данного ДЗ приведите promql запросы для выдачи этих метрик, а также скриншот получившейся Dashboard.
 - Утилизация CPU для nodeexporter (в процентах, 100-idle)
 ```
-(((count(count(node_cpu_seconds_total{instance="$node",job="$job"}) by (cpu))) - avg(sum by (mode)(irate(node_cpu_seconds_total{mode='idle',instance="$node",job="$job"}[5m])))) * 100) / count(count(node_cpu_seconds_total{instance="$node",job="$job"}) by (cpu))
+(((count(count(node_cpu_seconds_total) by (cpu))) - avg(sum by (mode)(irate(node_cpu_seconds_total{mode='idle'}[5m])))) * 100) / count(count(node_cpu_seconds_total) by (cpu))
 ```
 - CPULA 1/5/15
 ```
-avg(node_load1{instance="$node",job="$job"}) /  count(count(node_cpu_seconds_total{instance="$node",job="$job"}) by (cpu)) * 100
+avg(node_load1) /  count(count(node_cpu_seconds_total) by (cpu)) * 100
 
-avg(node_load5{instance="$node",job="$job"}) /  count(count(node_cpu_seconds_total{instance="$node",job="$job"}) by (cpu)) * 100
+avg(node_load5) /  count(count(node_cpu_seconds_total) by (cpu)) * 100
 
-avg(node_load15{instance="$node",job="$job"}) /  count(count(node_cpu_seconds_total{instance="$node",job="$job"}) by (cpu)) * 100
+avg(node_load15) /  count(count(node_cpu_seconds_total) by (cpu)) * 100
 ```
 - Количество свободной оперативной памяти
 ```
-(node_memory_MemAvailable_bytes{instance="$node",job="$job"} * 100) / node_memory_MemTotal_bytes{instance="$node",job="$job"}
+(node_memory_MemAvailable_bytes * 100) / node_memory_MemTotal_bytes
 ```
 - Количество места на файловой системе
 ```
-(node_filesystem_avail_bytes{instance="$node",job="$job",mountpoint="/",fstype!="rootfs"} * 100) / node_filesystem_size_bytes{instance="$node",job="$job",mountpoint="/",fstype!="rootfs"}
+(node_filesystem_avail_bytes{mountpoint="/",fstype!="rootfs"} * 100) / node_filesystem_size_bytes{mountpoint="/",fstype!="rootfs"}
 ```
 Была такая красота:
 ![https://raw.githubusercontent.com/OlegAnanyev/devops-netology/master/homeworks/10-monitoring-03-grafana-2.png](https://raw.githubusercontent.com/OlegAnanyev/devops-netology/master/homeworks/10-monitoring-03-grafana-2.png)
