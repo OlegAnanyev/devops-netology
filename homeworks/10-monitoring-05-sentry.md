@@ -67,3 +67,18 @@ http://prntscr.com/10c59rt
 
 Для выполнения задания пришлите скриншот меню issues вашего проекта и 
 пример кода подключения sentry sdk/отсылки событий.
+```
+http://prntscr.com/10c5ebq
+```
+
+```
+import sentry_sdk
+sentry_sdk.init(
+    "https://ee60*****************41220.ingest.sentry.io/5659799",
+    traces_sample_rate=1.0
+)
+
+division_by_zero = 1 / 0
+capture_message("Hello World")
+raise ValueError()
+```
