@@ -28,6 +28,15 @@
 Если всё отработало в рамках ожидания - выгрузить схемы workflow для импорта в XML. Файлы с workflow приложить к решению задания.
 
 ```
-http://prntscr.com/10h70zs
+Workflow визуально:
 http://prntscr.com/10h71je
+
+Workflow scheme:
+http://prntscr.com/10h70zs
+
+Workflow для багов:
+https://github.com/OlegAnanyev/devops-netology/blob/master/homeworks/09-ci-01-intro-BUG.xml
+
+Workflow для остальных задач:
+https://github.com/OlegAnanyev/devops-netology/blob/master/homeworks/09-ci-01-intro-ALL.xml
 ```
