@@ -34,6 +34,9 @@ http://prntscr.com/10h71je
 Workflow scheme:
 http://prntscr.com/10h70zs
 
+Канбан-доска с задачами:
+http://prntscr.com/10h752u
+
 Workflow для багов:
 https://github.com/OlegAnanyev/devops-netology/blob/master/homeworks/09-ci-01-intro-BUG.xml
 
