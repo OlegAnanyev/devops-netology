@@ -88,12 +88,6 @@ http://prntscr.com/10iq3go
 Результаты билда:
 ```
 ...
-Downloaded from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-io/2.0.2/plexus-io-2.0.2.jar (58 kB at 482 kB/s)
-Downloaded from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-archiver/2.1/plexus-archiver-2.1.jar (184 kB at 1.3 MB/s)
-Downloaded from central: https://repo.maven.apache.org/maven2/org/codehaus/plexus/plexus-utils/3.0/plexus-utils-3.0.jar (226 kB at 802 kB/s)
-Downloaded from central: https://repo.maven.apache.org/maven2/commons-lang/commons-lang/2.1/commons-lang-2.1.jar (208 kB at 724 kB/s)
-[WARNING] JAR will be empty - no content was marked for inclusion!
-[INFO] Building jar: /home/hawk/share/dz_09-ci-02-cicd/maven/apache-maven-3.6.3/bin/target/simple-app-1.0-SNAPSHOT.jar
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
