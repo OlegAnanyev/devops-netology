@@ -7,6 +7,11 @@ node("ansible_docker"){
     }
     stage("Run playbook"){
         if (secret_check){
+            sh 'ansible-vault decrypt secret --vault-password-file vault_pass'
+            sh 'mkdir ~/.ssh/'
+            sh 'mv ./secret ~/.ssh/id_rsa'
+            sh 'chmod 400 ~/.ssh/id_rsa'
+            sh 'ansible-galaxy install -r requirements.yml -p roles'
             sh 'ansible-playbook site.yml -i inventory/prod.yml'
         }
         else{
