@@ -11,7 +11,7 @@ node("ansible_docker"){
     }
     stage("Run playbook"){
         def secret_check = fileExists '~/.ssh/id_rsa'
-        if (secret_check){
+        if ($secret_check){
             sh 'ansible-playbook site.yml -i inventory/prod.yml'
         }
         else{
