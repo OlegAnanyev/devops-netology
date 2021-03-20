@@ -4,17 +4,17 @@ node("ansible_docker"){
     }
     stage("Prepare ssh key"){
         sh 'ansible-vault decrypt secret --vault-password-file vault_pass'
-        sh 'mkdir ~/.ssh/'
-        sh 'mv ./secret ~/.ssh/id_rsa'
-        sh 'chmod 400 ~/.ssh/id_rsa'
-        secret_check=true
+        sh 'mkdir ~/.ssh/ && mv ./secret ~/.ssh/id_rsa && chmod 400 ~/.ssh/id_rsa'
+        if (fileExists '~/.ssh/id_rsa'){
+            secret_check=true
+        }
     }    
     stage("Install requirements"){
         sh 'ansible-galaxy install -r requirements.yml -p roles'
     }
     stage("Run playbook"){
         if (secret_check){
-            sh 'ansible-playbook site.yml -i inventory/prod.yml'
+            echo 'OK!!!!!!!!!!!'
         }
         else{
             echo 'There is a problem with ssh key'
