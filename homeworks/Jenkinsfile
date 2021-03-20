@@ -12,7 +12,7 @@ node("ansible_docker"){
     stage("Run playbook"){
         def secret_check = fileExists '~/.ssh/id_rsa'
         if (secret_check){
-            echo 'OK!!!!'
+            sh 'ansible-playbook site.yml -i inventory/prod.yml'
         }
         else{
             echo 'There is a problem with ssh key'
