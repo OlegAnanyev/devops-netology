@@ -22,6 +22,28 @@
 7. Проверить работоспособность, исправить ошибки, исправленный Pipeline вложить в репозитрий в файл `ScriptedJenkinsfile`
 8. Отправить ссылку на репозиторий в ответе
 
+```
+Код Freestyle Job:
+ansible-vault decrypt secret --vault-password-file vault_pass
+mkdir ~/.ssh/
+mv ./secret ~/.ssh/id_rsa
+chmod 400 ~/.ssh/id_rsa
+ansible-galaxy install -r requirements.yml -p roles
+ansible-playbook site.yml -i inventory/prod.yml
+
+Результат работы Freestyle Job:
+http://prntscr.com/10qwn31
+```
+
+```
+Ссылка на Jenkinsfile:
+https://github.com/OlegAnanyev/devops-netology/blob/master/homeworks/Jenkinsfile
+
+Результаты сборок Scripted Pipeline:
+http://prntscr.com/10qwly5
+
+```
+
 ## Необязательная часть
 
 1. Создать скрипт на groovy, который будет собирать все Job, которые завершились хотя бы раз неуспешно. Добавить скрипт в репозиторий с решеним с названием `AllJobFailure.groovy`
