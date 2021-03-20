@@ -10,12 +10,12 @@ node("ansible_docker"){
         sh 'ansible-galaxy install -r requirements.yml -p roles'
     }
     stage("Run playbook"){
-        def secret_check = fileExists '~/.ssh/id_rsa'
-        if ($secret_check){
+        if (fileExists ('~/.ssh/id_rsa')){
             sh 'ansible-playbook site.yml -i inventory/prod.yml'
         }
         else{
             echo 'There is a problem with ssh key'
+            sh 'ansible-galaxy install -r requirements.yml -p roles'
         }
         
     }
