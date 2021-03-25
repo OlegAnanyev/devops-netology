@@ -36,10 +36,14 @@ http://prntscr.com/10qwn31
 ```
 
 ```
-Ссылка на Jenkinsfile:
+
+Ссылка на declarative Jenkinsfile:
+https://github.com/OlegAnanyev/devops-netology/blob/master/homeworks/Jenkinsfile_declatarive
+
+Ссылка на scripted Jenkinsfile:
 https://github.com/OlegAnanyev/devops-netology/blob/master/homeworks/Jenkinsfile
 
-Результаты сборок Scripted Pipeline:
+Результаты сборок:
 http://prntscr.com/10qwly5
 
 ```
