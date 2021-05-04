@@ -58,3 +58,76 @@ curl -X POST -H 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJz
 
 **Получение файла**
 curl -X GET http://localhost/images/4e6df220-295e-4231-82bc-45e4b1484430.jpg
+
+# РЕШЕНИЕ
+Для решения поставленной в ДЗ задачи потребовалось только создать конфигурацию nginx.
+
+nginx.conf:
+```
+events {
+    worker_connections 1024;
+    multi_accept on;
+}
+
+http {
+    server {
+        listen 8080;
+
+        location /register {
+            proxy_pass http://security:3000/v1/user;
+        }
+        location /token {
+            proxy_pass http://security:3000/v1/token;
+        }
+
+        location /user {
+            auth_request /auth;            
+            proxy_pass http://security:3000/v1/user;
+        }
+
+        location /upload {
+            auth_request /auth;
+            proxy_pass http://uploader:3000/v1/upload;
+        }   
+
+        location /images/ {
+            proxy_pass http://storage:9000/data/;
+        }
+
+        location /auth {
+            internal;
+            proxy_pass              http://security:3000/v1/token/validation;
+            proxy_pass_request_body off;
+            proxy_set_header        Content-Length "";
+            proxy_set_header        X-Original-URI $request_uri;
+        }               
+    }
+}
+```
+
+## Проверяем
+```bash
+#пытаемся загрузить файл без авторизации
+05:37:16 $ curl -X POST -H 'Content-Type: octet/stream' --data-binary @1.jpg http://localhost/upload
+<html>
+<head><title>401 Authorization Required</title></head>
+<body>
+<center><h1>401 Authorization Required</h1></center>
+<hr><center>nginx</center>
+</body>
+</html>
+
+#получаем токен для авторизации
+05:37:40 $ curl -X POST -H 'Content-Type: application/json' -d '{"login":"bob", "password":"qwe123"}' http://localhost/token
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJib2IifQ.hiMVLmssoTsy1MqbmIoviDeFPvo-nCd92d4UFiN2O2I
+
+#загружаем файл с авторизацией
+05:38:03 $ curl -X POST -H 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJib2IifQ.hiMVLmssoTsy1MqbmIoviDeFPvo-nCd92d4UFiN2O2I' -H 'Content-Type: octet/stream' --data-binary @1.jpg http://localhost/upload
+{"filename":"edf205f7-bbf4-4ceb-934f-70bac9323acb.jpg"}
+
+#скачиваем файл (curl предупреждает, что терминал сломается от вывода бинарного файла, но можем всё-таки рискнуть, добавив в конце  --output -)
+05:39:15 $ curl -X GET http://localhost/images/edf205f7-bbf4-4ceb-934f-70bac9323acb.jpg
+Warning: Binary output can mess up your terminal. Use "--output -" to tell
+Warning: curl to output it to your terminal anyway, or consider "--output
+Warning: <FILE>" to save to a file.
+```
