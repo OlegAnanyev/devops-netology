@@ -126,8 +126,9 @@ eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJib2IifQ.hiMVLmssoTsy1MqbmIoviDeF
 {"filename":"edf205f7-bbf4-4ceb-934f-70bac9323acb.jpg"}
 
 #скачиваем файл (curl предупреждает, что терминал сломается от вывода бинарного файла, но можем всё-таки рискнуть, добавив в конце  --output -)
-05:39:15 $ curl -X GET http://localhost/images/edf205f7-bbf4-4ceb-934f-70bac9323acb.jpg
-Warning: Binary output can mess up your terminal. Use "--output -" to tell
-Warning: curl to output it to your terminal anyway, or consider "--output
-Warning: <FILE>" to save to a file.
+
+05:39:15 $ curl http://localhost/images/edf205f7-bbf4-4ceb-934f-70bac9323acb.jpg > edf205f7-bbf4-4ceb-934f-70bac9323acb.jpg
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100  1818  100  1818    0     0   355k      0 --:--:-- --:--:-- --:--:--  355k
 ```
