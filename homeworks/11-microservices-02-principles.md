@@ -61,6 +61,7 @@ curl -X GET http://localhost/images/4e6df220-295e-4231-82bc-45e4b1484430.jpg
 
 # РЕШЕНИЕ
 Для решения поставленной в ДЗ задачи потребовалось только создать конфигурацию nginx.
+Полный docker-compose: https://github.com/OlegAnanyev/devops-netology/tree/master/homeworks/11-microservices-02-principles
 
 nginx.conf:
 ```
