@@ -10,9 +10,9 @@ services:
     restart: always
     expose: 
       - 9000
-    #для теста сделаем minio доступным извне
+    #для теста сделаем доступным извне
     #ports:
-    #  - "9000:9000"        
+    #  - "9009:9000"        
     environment:
       MINIO_ROOT_USER: ${Storage_AccessKey:-STORAGE_ACCESS_KEY}
       MINIO_ROOT_PASSWORD: ${Storage_Secret:-STORAGE_SECRET_KEY}
@@ -51,14 +51,18 @@ services:
       S3_ACCESS_KEY: ${Storage_AccessKey:-STORAGE_ACCESS_KEY}
       S3_ACCESS_SECRET: ${Storage_Secret:-STORAGE_SECRET_KEY}
       S3_BUCKET: ${Storage_Bucket:-STORAGE_BUCKET}
-  
+    #для теста сделаем доступным извне
+    #ports:
+    #  - "3003:3000"  
   security:
     build: ./security
     expose: 
       - 3000
     environment:
       PORT: 3000
-
+    #для теста сделаем доступным извне
+    #ports:
+    #  - "3004:3000"  
   gateway:
     image: nginx:alpine
     volumes:
@@ -69,3 +73,26 @@ services:
       - storage
       - uploader
       - security
+
+  prometheus:
+    image: prom/prometheus
+    expose: 
+      - 9090
+    #закинем конфиг прометеуса в контейнер
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    #ports:
+    #  - "9091:9090"
+
+  grafana1:
+    image: grafana/grafana
+    #закинем конфиг графаны в контейнер
+    volumes:
+      - ./grafana/grafana.db:/var/lib/grafana/grafana.db
+    ports:
+      - "3001:3000"
+
+  #tester:
+  #  image: ubuntu
+  #  stdin_open: true # docker run -i
+  #  tty: true        # docker run -t
