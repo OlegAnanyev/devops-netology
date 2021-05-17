@@ -1,0 +1,85 @@
+services:
+    redis1:
+      image: redis
+      ports:
+        - "7002:7002"    
+      volumes:
+        - ./config/redis1.tmpl:/usr/local/etc/redis/redis.conf
+      command: redis-server /usr/local/etc/redis/redis.conf
+      networks:
+        app_net:
+          ipv4_address: 173.17.0.2  
+    redis2:
+      image: redis
+      ports:
+        - "7003:7003" 
+      volumes:
+        - ./config/redis2.tmpl:/usr/local/etc/redis/redis.conf
+      command: redis-server /usr/local/etc/redis/redis.conf
+      networks:
+        app_net:
+          ipv4_address: 173.17.0.3      
+    redis3:
+      image: redis
+      ports:
+        - "7004:7004"    
+      volumes:
+        - ./config/redis3.tmpl:/usr/local/etc/redis/redis.conf
+      command: redis-server /usr/local/etc/redis/redis.conf
+      networks:
+        app_net:
+          ipv4_address: 173.17.0.4      
+    redis4:
+      image: redis
+      ports:
+        - "7005:7005"    
+      volumes:
+        - ./config/redis4.tmpl:/usr/local/etc/redis/redis.conf
+      command: redis-server /usr/local/etc/redis/redis.conf
+      networks:
+        app_net:
+          ipv4_address: 173.17.0.5  
+    redis5:
+      image: redis
+      ports:
+        - "7006:7006"    
+      volumes:
+        - ./config/redis5.tmpl:/usr/local/etc/redis/redis.conf
+      command: redis-server /usr/local/etc/redis/redis.conf
+      networks:
+        app_net:
+          ipv4_address: 173.17.0.6  
+    redis6:
+      image: redis
+      ports:
+        - "7007:7007"    
+      volumes:
+        - ./config/redis6.tmpl:/usr/local/etc/redis/redis.conf
+      command: redis-server /usr/local/etc/redis/redis.conf
+      networks:
+        app_net:
+          ipv4_address: 173.17.0.7
+          
+          
+    tester:
+        image: redis
+        stdin_open: true # docker run -i
+        tty: true        # docker run -t
+        networks:
+          app_net:
+            ipv4_address: 173.17.0.10
+        depends_on:
+          - redis1
+          - redis2
+          - redis3  
+          - redis4
+          - redis5
+          - redis6                     
+
+networks:
+  app_net:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 173.17.0.0/16
