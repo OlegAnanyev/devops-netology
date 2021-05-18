@@ -20,6 +20,27 @@
 - после запуска стоит проверить статус: minikube status
 - запущенные служебные компоненты можно увидеть командой: kubectl get pods --namespace=kube-system
 
+```
+root@ubuntu-server:~# minikube status
+minikube
+type: Control Plane
+host: Running
+kubelet: Running
+apiserver: Running
+kubeconfig: Configured
+
+root@ubuntu-server:~# kubectl get pods --namespace=kube-system
+NAME                                    READY   STATUS    RESTARTS   AGE
+coredns-74ff55c5b-gdvs6                 1/1     Running   0          9m8s
+etcd-ubuntu-server                      1/1     Running   0          9m16s
+kube-apiserver-ubuntu-server            1/1     Running   0          9m16s
+kube-controller-manager-ubuntu-server   1/1     Running   0          9m16s
+kube-proxy-wkgmw                        1/1     Running   0          9m8s
+kube-scheduler-ubuntu-server            1/1     Running   0          9m16s
+storage-provisioner                     1/1     Running   0          9m21s
+```
+
+
 ### Для сброса кластера стоит удалить кластер и создать заново:
 - minikube delete
 - minikube start --vm-driver=none
