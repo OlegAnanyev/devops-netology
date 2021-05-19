@@ -100,6 +100,14 @@ root@ubuntu-server:~# minikube addons list
 - подключиться к minikube 
 - проверить работу приложения из задания 2, запустив port-forward до кластера
 
+```bash
+root@ubuntu-server:~# kubectl cluster-info
+Kubernetes control plane is running at https://192.168.52.70:8443
+KubeDNS is running at https://192.168.52.70:8443/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
+
+To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
+```
+ 
 ## Задача 4 (*): собрать через ansible (необязательное)
 
 Профессионалы не делают одну и ту же задачу два раза. Давайте закрепим полученные навыки, автоматизировав выполнение заданий  ansible-скриптами. При выполнении задания обратите внимание на доступные модули для k8s под ansible.
