@@ -11,6 +11,15 @@
  * наличие deployment можно проверить командой kubectl get deployment
  * наличие подов можно проверить командой kubectl get pods
 
+```
+root@ubuntu-server:~# kubectl get deployment
+NAME         READY   UP-TO-DATE   AVAILABLE   AGE
+hello-node   2/2     2            2           2d4h
+root@ubuntu-server:~# kubectl get pods
+NAME                          READY   STATUS    RESTARTS   AGE
+hello-node-7567d9fdc9-xgglb   1/1     Running   0          2d4h
+hello-node-7567d9fdc9-xs5nm   1/1     Running   0          2d4h
+```
 
 ## Задание 2: Просмотр логов для разработки
 Разработчикам крайне важно получать обратную связь от штатно работающего приложения и, еще важнее, об ошибках в его работе. 
