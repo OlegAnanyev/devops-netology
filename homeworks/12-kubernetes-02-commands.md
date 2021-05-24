@@ -12,6 +12,8 @@
  * наличие подов можно проверить командой kubectl get pods
 
 ```
+root@ubuntu-server:~# kubectl scale --replicas=2 deployment/hello-node
+
 root@ubuntu-server:~# kubectl get deployment
 NAME         READY   UP-TO-DATE   AVAILABLE   AGE
 hello-node   2/2     2            2           2d4h
@@ -37,3 +39,14 @@ hello-node-7567d9fdc9-xs5nm   1/1     Running   0          2d4h
 Требования:
  * в deployment из задания 1 изменено количество реплик на 5
  * проверить что все поды перешли в статус running (kubectl get pods)
+
+```
+root@ubuntu-server:~# kubectl scale --replicas=5 deployment/hello-node
+root@ubuntu-server:~# kubectl get pods
+NAME                          READY   STATUS    RESTARTS   AGE
+hello-node-7567d9fdc9-b562k   1/1     Running   0          6s
+hello-node-7567d9fdc9-g4ssk   1/1     Running   0          6s
+hello-node-7567d9fdc9-lwp2k   1/1     Running   0          6s
+hello-node-7567d9fdc9-xgglb   1/1     Running   0          2d22h
+hello-node-7567d9fdc9-xs5nm   1/1     Running   0          2d22h
+```
