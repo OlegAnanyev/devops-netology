@@ -48,15 +48,15 @@ rules:
 ```bash
 
 # создаём пользователя
-root@ubuntu-server:/home/hawk/share/kuber# kubectl create serviceaccount netology-new
+root@ubuntu-server# kubectl create serviceaccount netology-new
 serviceaccount/netology-new created
 
 # привязываем пользователя к роли
-root@ubuntu-server:/home/hawk/share/kuber# kubectl create rolebinding log-viewer --clusterrole=view --serviceaccount=default:netology-new --namespace=default
+root@ubuntu-server# kubectl create rolebinding log-viewer --clusterrole=view --serviceaccount=default:netology-new --namespace=default
 rolebinding.rbac.authorization.k8s.io/log-viewer created
 
 # создаём токен для пользователя
-root@ubuntu-server:/home/hawk/share/kuber# kubectl apply -f - <<EOF
+root@ubuntu-server# kubectl apply -f - <<EOF
 > apiVersion: v1
 > kind: Secret
 > metadata:
@@ -68,7 +68,7 @@ root@ubuntu-server:/home/hawk/share/kuber# kubectl apply -f - <<EOF
 secret/netology-new created
 
 # смотрим созданный токен
-root@ubuntu-server:/home/hawk/share/kuber# kubectl describe secret/netology-new
+root@ubuntu-server# kubectl describe secret/netology-new
 Name:         netology-new
 Namespace:    default
 Labels:       <none>
@@ -84,19 +84,19 @@ namespace:  7 bytes
 token:      eyJhbGciOiJSUzI1NiIsImtpZCI6IkhxX2RpVkN5WkFvLW9PUllFMGw0d3FKdHZtZEJScUpLOUtWZjJnb0NsamsifQ.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJkZWZhdWx0Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZWNyZXQubmFtZSI6Im5ldG9sb2d5LW5ldyIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50Lm5hbWUiOiJuZXRvbG9neS1uZXciLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpY2UtYWNjb3VudC51aWQiOiI1YzdlYjBjZi01ZGQ5LTQyYjYtYTQ1OC05OTMwOTM5NDM2YzIiLCJzdWIiOiJzeXN0ZW06c2VydmljZWFjY291bnQ6ZGVmYXVsdDpuZXRvbG9neS1uZXcifQ.z3Z9bCGABWc3apCHFT4EJur5IQsrmFVEzky9uxZrEEKuXthDxnLgqmIF_7sBcFf2cFWsPJnFyEeECUxp4myyATls9yh7vm4JudZmzWmRIiV0qrOJNIr5Me3gABLxfYyJ8J0UUVZhLo8lVrdPXbMUEXEcuACqmcw25OT2I6hI9LLUr4BAksQsM3WMKg77H_X3JQ16ug32UkVXeIrfyhJ9uAM9iMojRAZGKzL700AArez7nxB4YxIvy43mNgVCcmNLZA7bvlkrd42g08tRB1AMCOyMWx73YncfxHkfpqoYl779PSwDHd_zlvewUj7uerEzH1Jy3gMoQKv33s3hIqDElg
 
 # добавляем пользователя с токеном в конфиг
-root@ubuntu-server:/home/hawk/share/kuber# kubectl config set-credentials netology-new --token eyJhbGciOiJSUzI1NiIsImtpZCI6IkhxX2RpVkN5WkFvLW9PUllFMGw0d3FKdHZtZEJScUpLOUtWZjJnb0NsamsifQ.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJkZWZhdWx0Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZWNyZXQubmFtZSI6Im5ldG9sb2d5LW5ldyIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50Lm5hbWUiOiJuZXRvbG9neS1uZXciLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpY2UtYWNjb3VudC51aWQiOiI1YzdlYjBjZi01ZGQ5LTQyYjYtYTQ1OC05OTMwOTM5NDM2YzIiLCJzdWIiOiJzeXN0ZW06c2VydmljZWFjY291bnQ6ZGVmYXVsdDpuZXRvbG9neS1uZXcifQ.z3Z9bCGABWc3apCHFT4EJur5IQsrmFVEzky9uxZrEEKuXthDxnLgqmIF_7sBcFf2cFWsPJnFyEeECUxp4myyATls9yh7vm4JudZmzWmRIiV0qrOJNIr5Me3gABLxfYyJ8J0UUVZhLo8lVrdPXbMUEXEcuACqmcw25OT2I6hI9LLUr4BAksQsM3WMKg77H_X3JQ16ug32UkVXeIrfyhJ9uAM9iMojRAZGKzL700AArez7nxB4YxIvy43mNgVCcmNLZA7bvlkrd42g08tRB1AMCOyMWx73YncfxHkfpqoYl779PSwDHd_zlvewUj7uerEzH1Jy3gMoQKv33s3hIqDElg
+root@ubuntu-server# kubectl config set-credentials netology-new --token eyJhbGciOiJSUzI1NiIsImtpZCI6IkhxX2RpVkN5WkFvLW9PUllFMGw0d3FKdHZtZEJScUpLOUtWZjJnb0NsamsifQ.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJkZWZhdWx0Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZWNyZXQubmFtZSI6Im5ldG9sb2d5LW5ldyIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50Lm5hbWUiOiJuZXRvbG9neS1uZXciLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpY2UtYWNjb3VudC51aWQiOiI1YzdlYjBjZi01ZGQ5LTQyYjYtYTQ1OC05OTMwOTM5NDM2YzIiLCJzdWIiOiJzeXN0ZW06c2VydmljZWFjY291bnQ6ZGVmYXVsdDpuZXRvbG9neS1uZXcifQ.z3Z9bCGABWc3apCHFT4EJur5IQsrmFVEzky9uxZrEEKuXthDxnLgqmIF_7sBcFf2cFWsPJnFyEeECUxp4myyATls9yh7vm4JudZmzWmRIiV0qrOJNIr5Me3gABLxfYyJ8J0UUVZhLo8lVrdPXbMUEXEcuACqmcw25OT2I6hI9LLUr4BAksQsM3WMKg77H_X3JQ16ug32UkVXeIrfyhJ9uAM9iMojRAZGKzL700AArez7nxB4YxIvy43mNgVCcmNLZA7bvlkrd42g08tRB1AMCOyMWx73YncfxHkfpqoYl779PSwDHd_zlvewUj7uerEzH1Jy3gMoQKv33s3hIqDElg
 User "netology-new" set.
 
 # настраиваем контекст на работу с новым пользователем
-root@ubuntu-server:/home/hawk/share/kuber# kubectl config set-context minikube --user netology-new
+root@ubuntu-server# kubectl config set-context minikube --user netology-new
 Context "minikube" modified.
 
 # переключаемся на контекст
-root@ubuntu-server:/home/hawk/share/kuber# kubectl config use-context minikube
+root@ubuntu-server# kubectl config use-context minikube
 Switched to context "minikube".
 
 # пробуем посмотреть поды (успешно)
-root@ubuntu-server:/home/hawk/share/kuber# kubectl get pods
+root@ubuntu-server# kubectl get pods
 NAME                          READY   STATUS    RESTARTS   AGE
 hello-node-7567d9fdc9-8jmln   1/1     Running   0          44m
 hello-node-7567d9fdc9-d8vcr   1/1     Running   0          44m
@@ -105,15 +105,15 @@ hello-node-7567d9fdc9-f767q   1/1     Running   0          44m
 hello-node-7567d9fdc9-js9kj   1/1     Running   0          44m
 
 # пробуем удалить какой-нибудь под (не хватает прав)
-root@ubuntu-server:/home/hawk/share/kuber# kubectl delete pods/hello-node-7567d9fdc9-d8vcr
+root@ubuntu-server# kubectl delete pods/hello-node-7567d9fdc9-d8vcr
 Error from server (Forbidden): pods "hello-node-7567d9fdc9-d8vcr" is forbidden: User "system:serviceaccount:default:netology-new" cannot delete resource "pods" in API group "" in the namespace "default"
 
 # возвращшаем стандартного пользователя в контекст
-root@ubuntu-server:/home/hawk/share/kuber# kubectl config set-context minikube --user minikube
+root@ubuntu-server# kubectl config set-context minikube --user minikube
 Context "minikube" modified.
 
 # теперь можно и удалять поды
-root@ubuntu-server:/home/hawk/share/kuber# kubectl delete pods/hello-node-7567d9fdc9-d8vcr
+root@ubuntu-server# kubectl delete pods/hello-node-7567d9fdc9-d8vcr
 pod "hello-node-7567d9fdc9-d8vcr" deleted
 ```
 
