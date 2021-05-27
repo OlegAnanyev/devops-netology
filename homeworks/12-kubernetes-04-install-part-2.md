@@ -73,3 +73,23 @@ ansible-playbook -i kubespray/inventory/dz-cluster/inventory.ini kubespray/clust
 Часть новых проектов хотят запускать на мощностях AWS. Требования похожи:
 * разворачивать 5 нод: 1 мастер и 4 рабочие ноды;
 * работать должны на минимально допустимых EC2 — t3.small.
+
+---------------------------------------
+
+Уберём проверку на минимум памяти из \kubespray\roles\kubernetes\preinstall\tasks\0020-verify-settings.yml, закомментив этот блок:
+
+```yaml
+#- name: Stop if memory is too small for masters
+#  assert:
+#    that: ansible_memtotal_mb >= minimal_master_memory_mb
+#  when:
+#    - not ignore_assert_errors
+#    - inventory_hostname in groups['kube_control_plane']
+
+#- name: Stop if memory is too small for nodes
+#  assert:
+#    that: ansible_memtotal_mb >= minimal_node_memory_mb
+#  when:
+#    - not ignore_assert_errors
+#    - inventory_hostname in groups['kube_node']
+```
