@@ -7,6 +7,28 @@
 * в качестве CRI — containerd;
 * запуск etcd производить на мастере.
 
+Мой inventory (рабочая нода только одна, чтобы не поднимать лишние виртуалки):
+```ini
+node1 ansible_host=192.168.52.148  etcd_member_name=etcd1
+node2 ansible_host=192.168.52.149
+
+[kube_control_plane]
+node1
+
+[etcd]
+node1
+
+[kube_node]
+node2
+
+[calico_rr]
+
+[k8s_cluster:children]
+kube_control_plane
+kube_node
+calico_rr
+```
+
 ```
 Для установки на Ubuntu Server 20.04.2 LTS пришлось подправить файл \roles\kubernetes\preinstall\vars\ubuntu.yml, изменив 
 required_pkgs:
