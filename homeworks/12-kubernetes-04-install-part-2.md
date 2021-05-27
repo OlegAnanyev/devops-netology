@@ -11,9 +11,25 @@
 Для установки на Ubuntu Server 20.04.2 LTS пришлось подправить файл \roles\kubernetes\preinstall\vars\ubuntu.yml, изменив 
 required_pkgs:
   - python-apt
+
 на
+
 required_pkgs:
   - python3-apt
+  
+для использования containerd:
+## k8s_cluster.yml
+container_manager: containerd
+
+## etcd.yml
+etcd_deployment_type: host
+
+## Containerd config
+
+containerd_registries:
+  "docker.io":
+    - "https://mirror.gcr.io"
+    - "https://registry-1.docker.io"
 ```
 
 ## Задание 2 (*): подготовить и проверить инвентарь для кластера в AWS
