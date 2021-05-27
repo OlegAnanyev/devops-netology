@@ -54,6 +54,14 @@ containerd_registries:
     - "https://registry-1.docker.io"
 ```
 
+Запускаем плейбук:
+```
+ansible-playbook -i kubespray/inventory/dz-cluster/inventory.ini kubespray/cluster.yml -u hawk --ask-pass -b --ask-become-pass
+```
+Результат выполнения плейбука:
+![image](https://user-images.githubusercontent.com/32748936/119849047-f8d6a600-bf14-11eb-8db1-8487de647736.png)
+
+
 ## Задание 2 (*): подготовить и проверить инвентарь для кластера в AWS
 Часть новых проектов хотят запускать на мощностях AWS. Требования похожи:
 * разворачивать 5 нод: 1 мастер и 4 рабочие ноды;
