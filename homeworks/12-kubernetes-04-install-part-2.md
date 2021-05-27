@@ -76,20 +76,10 @@ ansible-playbook -i kubespray/inventory/dz-cluster/inventory.ini kubespray/clust
 
 ---------------------------------------
 
-Уберём проверку на минимум памяти из \kubespray\roles\kubernetes\preinstall\tasks\0020-verify-settings.yml, закомментив этот блок:
+Уменьшим требования к памяти для матеров и воркеров в файле kubespray\roles\kubernetes\preinstall\defaults\main.yml:
 
 ```yaml
-#- name: Stop if memory is too small for masters
-#  assert:
-#    that: ansible_memtotal_mb >= minimal_master_memory_mb
-#  when:
-#    - not ignore_assert_errors
-#    - inventory_hostname in groups['kube_control_plane']
-
-#- name: Stop if memory is too small for nodes
-#  assert:
-#    that: ansible_memtotal_mb >= minimal_node_memory_mb
-#  when:
-#    - not ignore_assert_errors
-#    - inventory_hostname in groups['kube_node']
+# Minimal memory requirement in MB for safety checks
+minimal_node_memory_mb: 900
+minimal_master_memory_mb: 900
 ```
