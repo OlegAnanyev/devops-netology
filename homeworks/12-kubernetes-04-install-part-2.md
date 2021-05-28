@@ -140,3 +140,20 @@ terraform apply
 ansible-playbook -i kubespray/inventory/hosts kubespray/cluster.yml -e ansible_user=ubuntu -b --become-user=root --flush-cache
 ```
 
+```
+NO MORE HOSTS LEFT *************************************************************************************************************************************************************************************************************
+
+PLAY RECAP *********************************************************************************************************************************************************************************************************************
+bastion                    : ok=18   changed=0    unreachable=0    failed=0    skipped=19   rescued=0    ignored=0
+ip-10-250-195-116.eu-central-1.compute.internal : ok=335  changed=5    unreachable=0    failed=0    skipped=503  rescued=0    ignored=1
+ip-10-250-204-48.eu-central-1.compute.internal : ok=415  changed=12   unreachable=0    failed=0    skipped=683  rescued=0    ignored=1
+ip-10-250-207-81.eu-central-1.compute.internal : ok=360  changed=8    unreachable=0    failed=0    skipped=565  rescued=0    ignored=1
+ip-10-250-207-99.eu-central-1.compute.internal : ok=151  changed=3    unreachable=0    failed=0    skipped=261  rescued=0    ignored=0
+ip-10-250-214-208.eu-central-1.compute.internal : ok=335  changed=5    unreachable=0    failed=0    skipped=503  rescued=0    ignored=1
+ip-10-250-223-137.eu-central-1.compute.internal : ok=335  changed=5    unreachable=0    failed=0    skipped=503  rescued=0    ignored=1
+localhost                  : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+
+```
+
+зайдём через бастион на контрол-плейн и проверим статус кластера:
+![image](https://user-images.githubusercontent.com/32748936/120033405-2a7a6a80-c004-11eb-8420-890e99eaa0f6.png)
