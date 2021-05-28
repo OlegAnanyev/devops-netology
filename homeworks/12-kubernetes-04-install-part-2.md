@@ -75,8 +75,7 @@ ansible-playbook -i kubespray/inventory/dz-cluster/inventory.ini kubespray/clust
 * работать должны на минимально допустимых EC2 — t3.small.
 
 ---------------------------------------
-
-Уменьшим требования к памяти для маcтеров и воркеров в файле kubespray\roles\kubernetes\preinstall\defaults\main.yml:
+На AWS во free tier мне доступны только инстансы t2.micro, поэтому уменьшим требования к памяти для маcтеров и воркеров в файле kubespray\roles\kubernetes\preinstall\defaults\main.yml:
 
 ```yaml
 # Minimal memory requirement in MB for safety checks
@@ -84,5 +83,60 @@ minimal_node_memory_mb: 900
 minimal_master_memory_mb: 900
 ```
 
+в файле terraform.tfvars опишем требуемую инфраструктуру:
+```tf
+#Global Vars
+aws_cluster_name = "devtest"
+
+#VPC Vars
+aws_vpc_cidr_block       = "10.250.192.0/18"
+aws_cidr_subnets_private = ["10.250.192.0/20", "10.250.208.0/20"]
+aws_cidr_subnets_public  = ["10.250.224.0/20", "10.250.240.0/20"]
+
+#Bastion Host
+aws_bastion_size = "t2.micro"
+
+
+#Kubernetes Cluster
+
+aws_kube_master_num  = 1
+aws_kube_master_size = "t2.micro"
+
+aws_etcd_num  = 1
+aws_etcd_size = "t2.micro"
+
+aws_kube_worker_num  = 4
+aws_kube_worker_size = "t2.micro"
+
+#Settings AWS ELB
+
+aws_elb_api_port                = 6443
+k8s_secure_api_port             = 6443
+kube_insecure_apiserver_address = "0.0.0.0"
+
+default_tags = {
+  #  Env = "devtest"
+  #  Product = "kubernetes"
+}
+
+inventory_file = "../../../inventory/hosts"
+```
+
+в переменные окружения запишем требуемые параметры, сделаем init и apply:
+```bash
+export TF_VAR_AWS_ACCESS_KEY_ID="AKIAQ[...]BZX4O2"
+export TF_VAR_AWS_SECRET_ACCESS_KEY="4LmXzT[...]kB+B1Kr"
+export TF_VAR_AWS_SSH_KEY_NAME="my-ssh-key"
+export TF_VAR_AWS_DEFAULT_REGION="eu-central-1"
+terraform init
+terraform apply
+```
+
+инфраструктура успешно создана:
 ![image](https://user-images.githubusercontent.com/32748936/120026606-fbabc680-bffa-11eb-913f-fa2352d2d363.png)
+
+запустим ansible с использованием сгенерированного inventory:
+```
+ansible-playbook -i kubespray/inventory/hosts kubespray/cluster.yml -e ansible_user=ubuntu -b --become-user=root --flush-cache
+```
 
