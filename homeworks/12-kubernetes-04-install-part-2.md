@@ -76,10 +76,13 @@ ansible-playbook -i kubespray/inventory/dz-cluster/inventory.ini kubespray/clust
 
 ---------------------------------------
 
-Уменьшим требования к памяти для матеров и воркеров в файле kubespray\roles\kubernetes\preinstall\defaults\main.yml:
+Уменьшим требования к памяти для маcтеров и воркеров в файле kubespray\roles\kubernetes\preinstall\defaults\main.yml:
 
 ```yaml
 # Minimal memory requirement in MB for safety checks
 minimal_node_memory_mb: 900
 minimal_master_memory_mb: 900
 ```
+
+![image](https://user-images.githubusercontent.com/32748936/120026606-fbabc680-bffa-11eb-913f-fa2352d2d363.png)
+
