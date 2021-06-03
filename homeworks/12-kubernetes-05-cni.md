@@ -6,10 +6,10 @@
 * после применения следует настроить политику доступа к hello world извне.
 
 ```bash
-# сделаем поды деплоймента доступными из вне кластера, создав сервис
+# сделаем поды деплоймента доступными снаружи кластера, создав сервис
 root@node1:~# kubectl expose deployment hello-node --type=LoadBalancer --port=8080
 
-# посмотрим на какой порт проброшено приложение
+# посмотрим на каком порту доступен сервис, балансирующий запросы к приложениям в подах
 root@node1:~# kubectl get service
 NAME         TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
 hello-node   LoadBalancer   10.233.15.167   <pending>     8080:31165/TCP   28m
