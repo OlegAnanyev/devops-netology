@@ -69,6 +69,8 @@ spec:
           - name: POSTGRES_DB
             value: news
 ```
+![image](https://user-images.githubusercontent.com/32748936/123805151-80d61400-d8f6-11eb-941a-dc52da0dff63.png)
+
 
 ## Задание 2: подготовить конфиг для production окружения
 Следующим шагом будет запуск приложения в production окружении. Требования сложнее:
