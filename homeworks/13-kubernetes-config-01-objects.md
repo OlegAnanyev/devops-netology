@@ -7,6 +7,68 @@
 * регулируется с помощью deployment фронтенд и бекенд;
 * база данных — через statefulset.
 
+```
+По сути задания получается, что всё-таки не один под с 3 контейнерами, а 2+1, т.к. контейнер БД должен быть в своём поде в рамках statefulset-а.
+Ниже конфиг:
+```
+
+```yml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dz-deployment
+  labels:
+    app: dz
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dz
+  template:
+    metadata:
+      labels:
+        app: dz
+    spec:
+      containers:
+      - name: frontend
+        image: olegananyev/kub-dz-frontend:1
+        ports:
+        - containerPort: 80
+      - name: backend
+        image: olegananyev/kub-dz-backend:1
+        ports:
+        - containerPort: 9000
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: db
+spec:
+  selector:
+    matchLabels:
+      app: db
+  serviceName: "db"
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: db
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: db
+        image: postgres:13-alpine
+        ports:
+        - containerPort: 5432
+        env:
+          - name: POSTGRES_PASSWORD
+            value: postgres
+          - name: POSTGRES_USER
+            value: postgres
+          - name: POSTGRES_DB
+            value: news
+```
+
 ## Задание 2: подготовить конфиг для production окружения
 Следующим шагом будет запуск приложения в production окружении. Требования сложнее:
 * каждый компонент (база, бекенд, фронтенд) запускаются в своем поде, регулируются отдельными deployment’ами;
