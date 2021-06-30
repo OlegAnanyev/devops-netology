@@ -10,6 +10,7 @@
 ```
 По сути задания получается, что всё-таки не один под с 3 контейнерами,
 а 2+1, т.к. контейнер БД должен быть в своём поде в рамках statefulset-а.
+А также для доступа бэкенда к БД, добавим для неё service.
 Ниже конфиг:
 ```
 
@@ -17,7 +18,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: dz-deployment
+  name: frontend-backend
   labels:
     app: dz
 spec:
@@ -68,9 +69,21 @@ spec:
             value: postgres
           - name: POSTGRES_DB
             value: news
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres
+spec:
+  selector:
+    app: db
+  ports:
+    - protocol: TCP
+      port: 5432
+      targetPort: 5432
 ```
-![image](https://user-images.githubusercontent.com/32748936/123805151-80d61400-d8f6-11eb-941a-dc52da0dff63.png)
 
+![image](https://user-images.githubusercontent.com/32748936/123930401-618fc300-d998-11eb-993f-e6ea5a24b6bf.png)
 
 ## Задание 2: подготовить конфиг для production окружения
 Следующим шагом будет запуск приложения в production окружении. Требования сложнее:
