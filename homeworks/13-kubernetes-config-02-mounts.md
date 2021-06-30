@@ -12,6 +12,71 @@
 * в поде подключена общая папка между контейнерами (например, /static);
 * после записи чего-либо в контейнере с беком файлы можно получить из контейнера с фронтом.
 
+```
+Добавим в деплоймент volume с именем static и примонтируем его к обоим контенейрам в поде:
+```
+
+```yml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-backend
+  labels:
+    app: dz
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dz
+  template:
+    metadata:
+      labels:
+        app: dz
+    spec:
+      containers:
+      - name: frontend
+        image: olegananyev/kub-dz-frontend:1
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - mountPath: /static
+          name: static
+
+      - name: backend
+        image: olegananyev/kub-dz-backend:1
+        ports:
+        - containerPort: 9000
+        volumeMounts:
+        - mountPath: /static
+          name: static
+                  
+      volumes:
+      - name: static
+        emptyDir: {}
+```
+
+```
+Проверим:
+```
+
+```bash
+root@node1:/home/hawk# k get pods
+NAME                                  READY   STATUS    RESTARTS   AGE
+db-0                                  1/1     Running   0          7m31s
+frontend-backend-66ccf6bb79-lf8hz     2/2     Running   0          2m59s
+nfs-server-nfs-server-provisioner-0   1/1     Running   0          12m
+root@node1:/home/hawk# k exec -it frontend-backend-66ccf6bb79-lf8hz -c frontend /bin/bash
+kubectl exec [POD] [COMMAND] is DEPRECATED and will be removed in a future version. Use kubectl exec [POD] -- [COMMAND] instead.
+root@frontend-backend-66ccf6bb79-lf8hz:/app# cd /static
+root@frontend-backend-66ccf6bb79-lf8hz:/static# touch hello-from-frontend
+root@frontend-backend-66ccf6bb79-lf8hz:/static# exit
+root@node1:/home/hawk# k exec -it frontend-backend-66ccf6bb79-lf8hz -c backend /bin/bash
+kubectl exec [POD] [COMMAND] is DEPRECATED and will be removed in a future version. Use kubectl exec [POD] -- [COMMAND] instead.
+root@frontend-backend-66ccf6bb79-lf8hz:/app# cd /static
+root@frontend-backend-66ccf6bb79-lf8hz:/static# ls
+hello-from-frontend
+```
+
 ## Задание 2: подключить общую папку для прода
 Поработав на stage, доработки нужно отправить на прод. В продуктиве у нас контейнеры крутятся в разных подах, поэтому потребуется PV и связь через PVC. Сам PV должен быть связан с NFS сервером. Требования:
 * все бекенды подключаются к одному PV в режиме ReadWriteMany;
