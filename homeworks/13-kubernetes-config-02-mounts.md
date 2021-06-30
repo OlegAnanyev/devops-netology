@@ -66,12 +66,10 @@ db-0                                  1/1     Running   0          7m31s
 frontend-backend-66ccf6bb79-lf8hz     2/2     Running   0          2m59s
 nfs-server-nfs-server-provisioner-0   1/1     Running   0          12m
 root@node1:/home/hawk# k exec -it frontend-backend-66ccf6bb79-lf8hz -c frontend /bin/bash
-kubectl exec [POD] [COMMAND] is DEPRECATED and will be removed in a future version. Use kubectl exec [POD] -- [COMMAND] instead.
 root@frontend-backend-66ccf6bb79-lf8hz:/app# cd /static
 root@frontend-backend-66ccf6bb79-lf8hz:/static# touch hello-from-frontend
 root@frontend-backend-66ccf6bb79-lf8hz:/static# exit
 root@node1:/home/hawk# k exec -it frontend-backend-66ccf6bb79-lf8hz -c backend /bin/bash
-kubectl exec [POD] [COMMAND] is DEPRECATED and will be removed in a future version. Use kubectl exec [POD] -- [COMMAND] instead.
 root@frontend-backend-66ccf6bb79-lf8hz:/app# cd /static
 root@frontend-backend-66ccf6bb79-lf8hz:/static# ls
 hello-from-frontend
