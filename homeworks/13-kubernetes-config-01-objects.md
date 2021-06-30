@@ -200,7 +200,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: db
+  name: postgres
 spec:
   selector:
     app: db
