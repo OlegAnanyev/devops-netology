@@ -73,7 +73,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: postgres
+  name: db
 spec:
   selector:
     app: db
@@ -200,7 +200,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: postgres
+  name: db
 spec:
   selector:
     app: db
