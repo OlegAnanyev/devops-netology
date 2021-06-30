@@ -112,6 +112,13 @@ root@node1:/home/hawk# k exec -it frontend-6576f7dd68-84hgs /bin/bash
 root@frontend-6576f7dd68-84hgs:/app# ls /static
 hello-from-backend
 
+root@node1:/home/hawk# k get pv
+NAME                                       CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM                STORAGECLASS   REASON   AGE
+pvc-6726efad-048b-468c-82e6-785686934bae   100Mi      RWX            Delete           Bound    default/static-pvc   nfs                     2m41s
+root@node1:/home/hawk# k get pvc
+NAME         STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   AGE
+static-pvc   Bound    pvc-6726efad-048b-468c-82e6-785686934bae   100Mi      RWX            nfs            2m42s
+
 ```
 
 Полный конфиг:
