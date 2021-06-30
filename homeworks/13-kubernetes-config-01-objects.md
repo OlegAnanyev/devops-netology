@@ -210,7 +210,8 @@ spec:
       targetPort: 5432
 ```
 
-![image](https://user-images.githubusercontent.com/32748936/123807178-4e2d1b00-d8f8-11eb-8147-a321759b3e0a.png)
+![image](https://user-images.githubusercontent.com/32748936/123930874-cc40fe80-d998-11eb-942e-528f0534c6e2.png)
+
 
 
 ## Задание 3 (*): добавить endpoint на внешний ресурс api
