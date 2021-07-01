@@ -4,6 +4,46 @@
 * сделайте запросы к бекенду;
 * сделайте запросы к фронту;
 * подключитесь к базе данных.
+
+```
+exec:
+```
+
+```bash
+root@node1:~# k exec -it backend-bdbd584cf-fwvfz -- curl localhost:9000
+{"detail":"Not Found"}
+
+
+root@node1:~# k exec -it frontend-6576f7dd68-84hgs -- curl localhost:80
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <title>Список</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/build/main.css" rel="stylesheet">
+</head>
+<body>
+    <main class="b-page">
+        <h1 class="b-page__title">Список</h1>
+        <div class="b-page__content b-items js-list"></div>
+    </main>
+    <script src="/build/main.js"></script>
+</body>
+
+root@node1:~# k exec -it db-0 -- /bin/bash
+bash-5.1# su postgres
+/ $ psql -h localhost news
+psql (13.3)
+Type "help" for help.
+
+news=#
+```
+
+```
+port-forward:
+```
+
 ![image](https://user-images.githubusercontent.com/32748936/124096281-1abacf80-da63-11eb-8c20-06cc033efd7a.png)
 
 
