@@ -58,7 +58,3 @@ node2   Ready    <none>                 34d   v1.20.7
 ```    
 ![image](https://user-images.githubusercontent.com/32748936/124098855-9b7acb00-da65-11eb-8427-62e773c90ca4.png)
 
-```
-Видимо из-за легковесности приложений они все запускаются на node2
-```
-
