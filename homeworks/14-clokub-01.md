@@ -56,7 +56,7 @@ kubectl apply -f domain-cert.yml
 
 Итого:
 ```bash
-#сгнерируем сертификат и создадим из него секрет
+# сгнерируем сертификат и создадим из него секрет
 root@node1:~/14-1# openssl genrsa -out cert.key 4096
 openssl req -x509 -new -key cert.key -days 3650 -out cert.crt \
 -subj '/C=RU/ST=Moscow/L=Moscow/CN=server.local'
