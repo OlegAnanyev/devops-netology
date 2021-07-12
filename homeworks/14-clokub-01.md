@@ -183,12 +183,49 @@ secret/domain-cert created
 Выберите любимый образ контейнера, подключите секреты и проверьте их доступность
 как в виде переменных окружения, так и в виде примонтированного тома.
 
----
+![image](https://user-images.githubusercontent.com/32748936/125295334-cdc1dd80-e32d-11eb-98ac-c7b03194bcde.png)
 
-### Как оформить ДЗ?
+Deployment:
+```YML
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-backend
+  labels:
+    app: dz
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dz
+  template:
+    metadata:
+      labels:
+        app: dz
+    spec:
+      containers:
+      - name: frontend
+        image: olegananyev/kub-dz-frontend:1
+        env:
+          - name: SSL_KEY
+            valueFrom:
+              secretKeyRef:
+                name: domain-cert
+                key: tls.key
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - mountPath: /SSL
+          name: certs
+          readOnly: true
 
-Выполненное домашнее задание пришлите ссылкой на .md-файл в вашем репозитории.
-
-В качестве решения прикрепите к ДЗ конфиг файлы для деплоя. Прикрепите скриншоты вывода команды kubectl со списком запущенных объектов каждого типа (deployments, pods, secrets) или скриншот из самого Kubernetes, что сервисы подняты и работают, а также вывод из CLI.
-
----
+      - name: backend
+        image: olegananyev/kub-dz-backend:1
+        ports:
+        - containerPort: 9000
+                  
+      volumes:
+      - name: certs
+        secret:
+         secretName: domain-cert
+```
