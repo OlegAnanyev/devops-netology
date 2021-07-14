@@ -162,7 +162,8 @@ client.secrets.kv.v2.read_secret_version(
 ![image](https://user-images.githubusercontent.com/32748936/125636203-2f833dd0-e94e-4c46-bdbe-a4dc239251ed.png)
 
 Проверяем, что токен для Vault доступен через переменную окружения и всё работает:
-![image](https://user-images.githubusercontent.com/32748936/125637146-7adad8d1-36d8-4e71-885c-fbc5c6b36f49.png)
+![image](https://user-images.githubusercontent.com/32748936/125640619-8776b4ea-c82b-45a1-8162-2ce7036ff79e.png)
+
 
 
 
