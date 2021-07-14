@@ -111,7 +111,7 @@ client.secrets.kv.v2.read_secret_version(
 
 Изменим в конфиге Vault токен на "ololotoken_from_secret", при этом у меня ip сменился на 10.233.96.161.
 
-Конфиг тестового пода:
+Конфиг тестового пода (вместо Fedora я решил использовать контейнер python, т.к. в нём уже есть pip):
 ```yml
 apiVersion: v1
 kind: Pod
