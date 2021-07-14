@@ -52,6 +52,10 @@ client.secrets.kv.v2.read_secret_version(
 )
 ```
 
+![image](https://user-images.githubusercontent.com/32748936/125627063-c85f1433-4c35-4809-8657-00967831f4c4.png)
+
+
+
 ## Задача 2 (*): Работа с картами конфигураций внутри модуля
 
 * На основе образа fedora создать модуль;
