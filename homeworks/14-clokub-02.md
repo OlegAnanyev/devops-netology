@@ -108,6 +108,11 @@ client.secrets.kv.v2.read_secret_version(
 * Подключить секрет к модулю;
 * Запустить модуль и проверить доступность сервиса Vault.
 
+![image](https://user-images.githubusercontent.com/32748936/125636203-2f833dd0-e94e-4c46-bdbe-a4dc239251ed.png)
+
+
+
+
 ---
 
 ### Как оформить ДЗ?
