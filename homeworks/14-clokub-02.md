@@ -108,8 +108,60 @@ client.secrets.kv.v2.read_secret_version(
 * Подключить секрет к модулю;
 * Запустить модуль и проверить доступность сервиса Vault.
 
+
+Изменим в конфиге Vault токен на "ololotoken_from_secret", при этом у меня ip сменился на 10.233.96.161.
+
+Конфиг тестового пода:
+```yml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: python-test-vault
+spec:
+  containers:
+  - name: python-test-vault
+    image: python
+    env:
+      - name: VAULT_TOKEN
+        valueFrom:
+          secretKeyRef:
+            name: vault-token
+            key: token
+  restartPolicy: Never
+```
+
+Создадим секрет со значением токена:
+```bash
+root@node1:/home/hawk# kubectl create secret generic vault-token --from-literal=token=ololotoken_from_secret
+secret/vault-token created
+```
+
+Скрипт для тестирования:
+```
+import hvac
+import os
+client = hvac.Client(
+    url='http://10.233.96.161:8200',
+    token=os.environ['VAULT_TOKEN']
+)
+client.is_authenticated()
+
+# Пишем секрет
+client.secrets.kv.v2.create_or_update_secret(
+    path='hvac',
+    secret=dict(netology='Big secret with secret token!!!'),
+)
+
+# Читаем секрет
+client.secrets.kv.v2.read_secret_version(
+    path='hvac',
+)
+```
+
+Логинимся в консоль тестового контейнера:
 ![image](https://user-images.githubusercontent.com/32748936/125636203-2f833dd0-e94e-4c46-bdbe-a4dc239251ed.png)
 
+Проверяем, что токен для Vault доступен через переменную окружения и всё работает:
 ![image](https://user-images.githubusercontent.com/32748936/125637146-7adad8d1-36d8-4e71-885c-fbc5c6b36f49.png)
 
 
