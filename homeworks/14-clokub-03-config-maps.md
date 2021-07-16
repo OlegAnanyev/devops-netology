@@ -61,6 +61,58 @@ kubectl apply -f nginx-config.yml
 их доступность как в виде переменных окружения, так и в виде примонтированного
 тома
 
+```
+Используем конфигмап, созданный из литерала, как переменную окружения. А конфигмап, созданный из файла, примонтируем в контейнер по пути /nginx-config
+```
+
+```yml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-backend
+  labels:
+    app: dz
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dz
+  template:
+    metadata:
+      labels:
+        app: dz
+    spec:
+      containers:
+      - name: frontend
+        image: olegananyev/kub-dz-frontend:1
+        env:
+          - name: DOMAIN_FROM_CONFIGMAP
+            valueFrom:
+              configMapKeyRef:
+                name: domain
+                key: name
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: config-volume
+          mountPath: /nginx-config
+          readOnly: true
+      - name: backend
+        image: olegananyev/kub-dz-backend:1
+        ports:
+        - containerPort: 9000
+      volumes:
+        - name: config-volume
+          configMap:
+            name: nginx-config
+```
+
+```
+Применим изменённый деплоймент и, зайдя внутрь контейнера, проверим, что всё получилось:
+```
+
+![image](https://user-images.githubusercontent.com/32748936/125953588-bc177f38-62db-4255-87ea-014a6b12f6f2.png)
+
 ---
 
 ### Как оформить ДЗ?
