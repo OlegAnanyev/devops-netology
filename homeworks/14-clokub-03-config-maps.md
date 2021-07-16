@@ -52,6 +52,9 @@ kubectl delete configmap nginx-config
 kubectl apply -f nginx-config.yml
 ```
 
+![image](https://user-images.githubusercontent.com/32748936/125951907-6cddb0b3-da02-4803-8fee-e0ee51a45777.png)
+
+
 ## Задача 2 (*): Работа с картами конфигураций внутри модуля
 
 Выбрать любимый образ контейнера, подключить карты конфигураций и проверить
