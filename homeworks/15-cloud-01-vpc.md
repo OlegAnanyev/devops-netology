@@ -35,3 +35,76 @@
 - [VPC](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc)
 - [Subnet](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/subnet)
 - [Internet Gateway](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/internet_gateway)
+
+
+# Решение
+```tf
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 3.27"
+    }
+  }
+
+  required_version = ">= 0.14.9"
+}
+variable "AWS_REGION" {    
+    default = "eu-north-1"
+}
+provider "aws" {
+  profile = "default"
+  region  = "${var.AWS_REGION}"
+}
+module "vpc" {
+  source = "terraform-aws-modules/vpc/aws"
+  name = "netology-vpc"
+  cidr = "172.31.0.0/16"
+  azs = ["eu-north-1a", "eu-north-1b", "eu-north-1c"]
+
+  tags = {
+    Terraform = "true"
+    Environment = "dev"
+  }
+}
+
+/* ========================== PUBLIC ========================== */
+resource "aws_subnet" "public" {
+  vpc_id     = module.vpc.vpc_id
+  cidr_block = "172.31.32.0/19"
+
+  tags = {
+    Name = "public"
+  }
+}
+resource "aws_internet_gateway" "gw" {
+  vpc_id = module.vpc.vpc_id
+
+  tags = {
+    Name = "internet gateway"
+  }
+}
+
+resource "aws_route_table" "pub_to_inet" {
+  vpc_id = module.vpc.vpc_id
+
+  route {
+    cidr_block = aws_subnet.public.cidr_block
+    gateway_id = aws_internet_gateway.gw.id
+  }
+
+  tags = {
+    Name = "public to the internet"
+  }
+}
+
+/* ========================== PRIVATE ========================== */
+resource "aws_subnet" "private" {
+  vpc_id     = module.vpc.vpc_id
+  cidr_block = "172.31.96.0/19"
+
+  tags = {
+    Name = "private"
+  }
+}
+```
