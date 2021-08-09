@@ -11,6 +11,11 @@
 kubectl create serviceaccount netology
 ```
 
+```
+[hawk:~] $ kubectl create serviceaccount netologydz
+serviceaccount/netologydz created
+```
+
 ### Как просмотреть список сервис-акаунтов?
 
 ```
@@ -18,6 +23,12 @@ kubectl get serviceaccounts
 kubectl get serviceaccount
 ```
 
+```
+[hawk:~] $ kubectl get serviceaccounts
+NAME               SECRETS   AGE
+default            1         10d
+netologydz         1         1d
+```
 ### Как получить информацию в формате YAML и/или JSON?
 
 ```
@@ -25,6 +36,36 @@ kubectl get serviceaccount netology -o yaml
 kubectl get serviceaccount default -o json
 ```
 
+```
+[hawk:~] $ kubectl get serviceaccount netologydz -o yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  creationTimestamp: "2021-08-08T14:21:02Z"
+  name: netologydz
+  namespace: default
+  resourceVersion: "779349"
+  uid: c5a2b3ba-f91f-11eb-9a03-0242ac130003
+secrets:
+- name: netology-token-ndjrh
+[hawk:~] $ kubectl get serviceaccount netologydz -o json
+{
+    "apiVersion": "v1",
+    "kind": "ServiceAccount",
+    "metadata": {
+        "creationTimestamp": "2021-08-08T14:21:02Z",
+        "name": "default",
+        "namespace": "default",
+        "resourceVersion": "431",
+        "uid": "c5a2b3ba-f91f-11eb-9a03-0242ac130003"
+    },
+    "secrets": [
+        {
+            "name": "default-token-ndjrh"
+        }
+    ]
+}
+```
 ### Как выгрузить сервис-акаунты и сохранить его в файл?
 
 ```
@@ -32,18 +73,29 @@ kubectl get serviceaccounts -o json > serviceaccounts.json
 kubectl get serviceaccount netology -o yaml > netology.yml
 ```
 
+```
+[hawk:~] $ kubectl get serviceaccount netologydz -o yaml > netologydz.yml
+```
 ### Как удалить сервис-акаунт?
 
 ```
 kubectl delete serviceaccount netology
 ```
 
+```
+[hawk:~] $ kubectl delete serviceaccount netologydz
+serviceaccount "netologydz" deleted
+```
 ### Как загрузить сервис-акаунт из файла?
 
 ```
 kubectl apply -f netology.yml
 ```
 
+```
+[hawk:~] $ kubectl apply -f netologydz.yml
+serviceaccount/netologydz created
+```
 ## Задача 2 (*): Работа с сервис-акаунтами внутри модуля
 
 Выбрать любимый образ контейнера, подключить сервис-акаунты и проверить
