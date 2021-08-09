@@ -111,9 +111,6 @@ resource "aws_subnet" "private" {
 
 Импортируем сертификаты сервера и клиента для VPN:
 ```
-[hawk:~/custom_folder] $ aws acm import-certificate --certificate fileb://server.crt --private-key fileb://server.key --certificate-chain fileb://ca.crt
-
-An error occurred (AccessDeniedException) when calling the ImportCertificate operation: User: arn:aws:iam::016202594952:user/netology_terraform is not authorized to perform: acm:ImportCertificate on resource: arn:aws:acm:eu-north-1:016202594952:certificate/*
 [hawk:~/custom_folder] 254 $ aws acm import-certificate --certificate fileb://server.crt --private-key fileb://server.key --certificate-chain fileb://ca.crt
 {
     "CertificateArn": "arn:aws:acm:eu-north-1:016202594952:certificate/f9450162-558c-403f-a600-6be21145edc3"
