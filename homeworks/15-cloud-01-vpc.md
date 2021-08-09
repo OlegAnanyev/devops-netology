@@ -183,7 +183,7 @@ resource "aws_ec2_client_vpn_endpoint" "my_vpn_endpoint" {
 Подключимся к VPN:
 ![image](https://user-images.githubusercontent.com/32748936/128720726-11b83dec-fd93-4d0b-b482-2c7702b1ff14.png)
 
-Подключимся к инстансу в приватной сети и проверим доступ в интернет с него:
+Подключимся к инстансу в приватной сети по серому IP и проверим доступ в интернет с него:
 ```bash
 ubuntu@ip-172-31-104-28:~$ ping netology.ru
 PING netology.ru (172.67.43.83) 56(84) bytes of data.
@@ -198,7 +198,7 @@ PING netology.ru (172.67.43.83) 56(84) bytes of data.
 rtt min/avg/max/mdev = 4.244/5.708/11.413/2.852 ms
 ```
 
-Подключимся к инстансу в публичной сети и проверим доступ к интернету:
+Подключимся к инстансу в публичной сети по белому IP и проверим доступ к интернету:
 ```bash
 ubuntu@ip-172-31-37-78:~$ ping ya.ru
 PING ya.ru (87.250.250.242) 56(84) bytes of data.
