@@ -177,20 +177,6 @@ resource "aws_ec2_client_vpn_authorization_rule" "default_vpn_authorization_rule
 Подключимся к VPN:
 ![image](https://user-images.githubusercontent.com/32748936/128720726-11b83dec-fd93-4d0b-b482-2c7702b1ff14.png)
 
-Подключимся к инстансу в приватной сети по серому IP и проверим доступ в интернет с него:
-```bash
-ubuntu@ip-172-31-104-28:~$ ping netology.ru
-PING netology.ru (172.67.43.83) 56(84) bytes of data.
-64 bytes from 172.67.43.83 (172.67.43.83): icmp_seq=1 ttl=51 time=11.4 ms
-64 bytes from 172.67.43.83 (172.67.43.83): icmp_seq=2 ttl=51 time=4.30 ms
-64 bytes from 172.67.43.83 (172.67.43.83): icmp_seq=3 ttl=51 time=4.25 ms
-64 bytes from 172.67.43.83 (172.67.43.83): icmp_seq=4 ttl=51 time=4.34 ms
-64 bytes from 172.67.43.83 (172.67.43.83): icmp_seq=5 ttl=51 time=4.24 ms
-^C
---- netology.ru ping statistics ---
-5 packets transmitted, 5 received, 0% packet loss, time 4005ms
-rtt min/avg/max/mdev = 4.244/5.708/11.413/2.852 ms
-```
 
 Подключимся к инстансу в публичной сети по белому IP и проверим доступ к интернету:
 ```bash
