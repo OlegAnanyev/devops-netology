@@ -145,15 +145,14 @@ resource "aws_route_table_association" "b" {
 
 /* ========================== VPN ========================== */
 
-/*
 resource "aws_ec2_client_vpn_endpoint" "my_vpn_endpoint" {
-  description            = "VPN endpont"
-  server_certificate_arn = "arn:aws:acm:eu-north-1:016202594952:certificate/f9450162-558c-403f-a600-6be21145edc3" // aws_acm_certificate.cert.arn
-  client_cidr_block      = "10.0.0.0/22"
+  description            = "terraform-clientvpn-endpoint"
+  server_certificate_arn = "arn:aws:acm:eu-north-1:016202594952:certificate/f9450162-558c-403f-a600-6be21145edc3"
+  client_cidr_block      = "10.0.0.0/16"
 
   authentication_options {
     type                       = "certificate-authentication"
-    root_certificate_chain_arn = "arn:aws:acm:eu-north-1:016202594952:certificate/f9450162-558c-403f-a600-6be21145edc3" // aws_acm_certificate.root_cert.arn
+    root_certificate_chain_arn = "arn:aws:acm:eu-north-1:016202594952:certificate/f9450162-558c-403f-a600-6be21145edc3"
   }
 
   connection_log_options {
@@ -162,21 +161,16 @@ resource "aws_ec2_client_vpn_endpoint" "my_vpn_endpoint" {
     //cloudwatch_log_stream = aws_cloudwatch_log_stream.ls.name
   }
 }
-*/
-```
 
-Создадим VPN:
-![image](https://user-images.githubusercontent.com/32748936/128720926-dc2973fe-46ea-4c88-8ead-8c2e0e9a9b75.png)
-
-Импортируем сертификаты сервера и клиента для VPN на AWS:
-```
-[hawk:~/custom_folder] 254 $ aws acm import-certificate --certificate fileb://server.crt --private-key fileb://server.key --certificate-chain fileb://ca.crt
-{
-    "CertificateArn": "arn:aws:acm:eu-north-1:016202594952:certificate/f9450162-558c-403f-a600-6be21145edc3"
+resource "aws_ec2_client_vpn_network_association" "vpn_to_private__association" {
+  client_vpn_endpoint_id = aws_ec2_client_vpn_endpoint.my_vpn_endpoint.id
+  subnet_id              = aws_subnet.private.id
 }
-[hawk:~/custom_folder] $ aws acm import-certificate --certificate fileb://server.crt --private-key fileb://server.key --certificate-chain fileb://ca.crt
-{
-    "CertificateArn": "arn:aws:acm:eu-north-1:016202594952:certificate/12f191a9-47d7-496d-856c-89b5211a772e"
+
+resource "aws_ec2_client_vpn_authorization_rule" "default_vpn_authorization_rule" {
+  client_vpn_endpoint_id = aws_ec2_client_vpn_endpoint.my_vpn_endpoint.id
+  target_network_cidr    = aws_subnet.private.cidr_block
+  authorize_all_groups   = true
 }
 ```
 
