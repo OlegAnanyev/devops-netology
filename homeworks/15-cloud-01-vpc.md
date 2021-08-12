@@ -152,7 +152,7 @@ resource "aws_ec2_client_vpn_endpoint" "my_vpn_endpoint" {
 
   authentication_options {
     type                       = "certificate-authentication"
-    root_certificate_chain_arn = "arn:aws:acm:eu-north-1:016202594952:certificate/f9450162-558c-403f-a600-6be21145edc3"
+    root_certificate_chain_arn = "arn:aws:acm:eu-north-1:016202594952:certificate/12f191a9-47d7-496d-856c-89b5211a772e"
   }
 
   connection_log_options {
@@ -172,6 +172,14 @@ resource "aws_ec2_client_vpn_authorization_rule" "default_vpn_authorization_rule
   target_network_cidr    = aws_subnet.private.cidr_block
   authorize_all_groups   = true
 }
+
+/*
+resource "aws_ec2_client_vpn_route" "default_vpn_route" {
+  client_vpn_endpoint_id = aws_ec2_client_vpn_endpoint.my_vpn_endpoint.id
+  destination_cidr_block = "0.0.0.0/0"
+  target_vpc_subnet_id   = aws_ec2_client_vpn_network_association.vpn_to_private__association.subnet_id
+}
+*/
 ```
 
 Подключимся к VPN:
