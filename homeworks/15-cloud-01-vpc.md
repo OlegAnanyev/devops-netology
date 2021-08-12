@@ -113,14 +113,18 @@ resource "aws_subnet" "private" {
   }
 }
 
+resource "aws_eip" "ip_for_nat" {
+  vpc      = true
+}
+
 resource "aws_nat_gateway" "NAT_for_private_subnet" {
-  connectivity_type = "private"
+  allocation_id = aws_eip.ip_for_nat.id
   subnet_id     = aws_subnet.public.id
-  depends_on = [aws_internet_gateway.gw]
-  
+
   tags = {
     Name = "NAT for private subnet"
   }
+  depends_on = [aws_internet_gateway.gw]
 }
 
 
@@ -157,8 +161,6 @@ resource "aws_ec2_client_vpn_endpoint" "my_vpn_endpoint" {
 
   connection_log_options {
     enabled               = false
-    //cloudwatch_log_group  = aws_cloudwatch_log_group.lg.name
-    //cloudwatch_log_stream = aws_cloudwatch_log_stream.ls.name
   }
 }
 
@@ -172,14 +174,6 @@ resource "aws_ec2_client_vpn_authorization_rule" "default_vpn_authorization_rule
   target_network_cidr    = aws_subnet.private.cidr_block
   authorize_all_groups   = true
 }
-
-/*
-resource "aws_ec2_client_vpn_route" "default_vpn_route" {
-  client_vpn_endpoint_id = aws_ec2_client_vpn_endpoint.my_vpn_endpoint.id
-  destination_cidr_block = "0.0.0.0/0"
-  target_vpc_subnet_id   = aws_ec2_client_vpn_network_association.vpn_to_private__association.subnet_id
-}
-*/
 ```
 
 Подключимся к VPN:
