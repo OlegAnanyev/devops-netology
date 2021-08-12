@@ -200,5 +200,20 @@ PING ya.ru (87.250.250.242) 56(84) bytes of data.
 5 packets transmitted, 5 received, 0% packet loss, time 4007ms
 rtt min/avg/max/mdev = 47.569/47.640/47.679/0.038 ms
 ubuntu@ip-172-31-37-78:~$
+```
 
+Подключимся к инстансу в приватной сети по серому IP и проверим доступ в интернет с него:
+```bash
+ubuntu@ip-172-31-111-149:~$ ping ya.ru
+PING ya.ru (87.250.250.242) 56(84) bytes of data.
+64 bytes from ya.ru (87.250.250.242): icmp_seq=1 ttl=43 time=48.9 ms
+64 bytes from ya.ru (87.250.250.242): icmp_seq=2 ttl=43 time=48.7 ms
+64 bytes from ya.ru (87.250.250.242): icmp_seq=3 ttl=43 time=48.7 ms
+64 bytes from ya.ru (87.250.250.242): icmp_seq=4 ttl=43 time=48.7 ms
+64 bytes from ya.ru (87.250.250.242): icmp_seq=5 ttl=43 time=48.7 ms
+^C
+--- ya.ru ping statistics ---
+5 packets transmitted, 5 received, 0% packet loss, time 4007ms
+rtt min/avg/max/mdev = 48.658/48.731/48.877/0.076 ms
+ubuntu@ip-172-31-111-149:~$
 ```
