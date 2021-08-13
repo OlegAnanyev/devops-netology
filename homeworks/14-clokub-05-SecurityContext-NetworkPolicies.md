@@ -15,6 +15,10 @@ kubectl logs security-context-demo
 uid=1000 gid=3000 groups=3000
 ```
 
+## Решение
+![image](https://user-images.githubusercontent.com/32748936/129328469-f5dc5885-8c97-4232-8e8d-1b556d71a0c7.png)
+
+
 ## Задача 2 (*): Рассмотрите пример 14.5/example-network-policy.yml
 
 Создайте два модуля. Для первого модуля разрешите доступ к внешнему миру
