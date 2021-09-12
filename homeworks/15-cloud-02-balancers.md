@@ -264,7 +264,7 @@ resource "aws_elb" "elb" {
     lb_port           = 80
     lb_protocol       = "http"
   }
-   security_groups = [aws_security_group.security_group.id]
+  security_groups = [aws_security_group.security_group.id]
   cross_zone_load_balancing   = true
   idle_timeout                = 400
   connection_draining         = true
