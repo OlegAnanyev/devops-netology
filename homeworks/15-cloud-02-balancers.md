@@ -309,6 +309,6 @@ output "elb_dns_name" {
 ```
 
 Done:
-![image](https://user-images.githubusercontent.com/32748936/132998628-e09d1606-a21c-499d-ba80-6e0341ae89d4.png)
+![image](https://user-images.githubusercontent.com/32748936/132998874-d42dd21f-cebd-4fcc-be61-3a10704310be.png)
 
 
