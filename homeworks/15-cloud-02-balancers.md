@@ -307,4 +307,6 @@ output "elb_dns_name" {
 }
 ```
 
+![image](https://user-images.githubusercontent.com/32748936/132998628-e09d1606-a21c-499d-ba80-6e0341ae89d4.png)
+
 
