@@ -22,7 +22,7 @@
 - Загрузить 3 ЕС2-инстанса и настроить LB с помощью Autoscaling Group.
 
 ## Решение
-script.tpl
+script.tpl:
 ```bash
 #!/bin/bash
 sudo yum install httpd -y
@@ -33,7 +33,8 @@ sudo touch /var/www/html/index.html
 sudo chown ubuntu /var/www/html/index.html
 sudo echo "<html><h1>Oleg Ananyev Netology DZ</h1><h2>Hi, my hostname is: $(hostname)</h2><div><img src='${file}'></div></html>" > /var/www/html/index.html
 ```
-main.tf
+
+main.tf:
 ```tf
 /* ===================================   15.1   =============================================== */
 terraform {
@@ -307,6 +308,7 @@ output "elb_dns_name" {
 }
 ```
 
+Done:
 ![image](https://user-images.githubusercontent.com/32748936/132998628-e09d1606-a21c-499d-ba80-6e0341ae89d4.png)
 
 
