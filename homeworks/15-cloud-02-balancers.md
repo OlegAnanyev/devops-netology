@@ -22,6 +22,18 @@
 - Загрузить 3 ЕС2-инстанса и настроить LB с помощью Autoscaling Group.
 
 ## Решение
+script.tpl
+```bash
+#!/bin/bash
+sudo yum install httpd -y
+sudo service httpd start
+
+sudo wget https://${url}/${file} -P /var/www/html/
+sudo touch /var/www/html/index.html
+sudo chown ubuntu /var/www/html/index.html
+sudo echo "<html><h1>Oleg Ananyev Netology DZ</h1><h2>Hi, my hostname is: $(hostname)</h2><div><img src='${file}'></div></html>" > /var/www/html/index.html
+```
+main.tf
 ```tf
 /* ===================================   15.1   =============================================== */
 terraform {
