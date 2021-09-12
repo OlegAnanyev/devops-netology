@@ -23,7 +23,7 @@
 
 ## Решение
 ```tf
-/* ===================================   15.1     =============================================== */
+/* ===================================   15.1   =============================================== */
 terraform {
   required_providers {
     aws = {
@@ -34,21 +34,21 @@ terraform {
 
   required_version = ">= 0.14.9"
 }
-variable "AWS_REGION" {    
-    default = "eu-north-1"
+variable "AWS_REGION" {
+  default = "eu-north-1"
 }
 provider "aws" {
   profile = "default"
-  region  = "${var.AWS_REGION}"
+  region  = var.AWS_REGION
 }
 module "vpc" {
   source = "terraform-aws-modules/vpc/aws"
-  name = "netology-vpc"
-  cidr = "172.31.0.0/16"
-  azs = ["eu-north-1a", "eu-north-1b", "eu-north-1c"]
+  name   = "netology-vpc"
+  cidr   = "172.31.0.0/16"
+  azs    = ["eu-north-1a", "eu-north-1b", "eu-north-1c"]
 
   tags = {
-    Terraform = "true"
+    Terraform   = "true"
     Environment = "dev"
   }
 }
@@ -99,7 +99,7 @@ resource "aws_subnet" "private" {
 }
 
 resource "aws_eip" "ip_for_nat" {
-  vpc      = true
+  vpc = true
 }
 
 resource "aws_nat_gateway" "NAT_for_private_subnet" {
@@ -117,7 +117,7 @@ resource "aws_route_table" "private_to_nat" {
   vpc_id = module.vpc.vpc_id
 
   route {
-    cidr_block = "0.0.0.0/0"
+    cidr_block     = "0.0.0.0/0"
     nat_gateway_id = aws_nat_gateway.NAT_for_private_subnet.id
   }
 
@@ -145,7 +145,7 @@ resource "aws_ec2_client_vpn_endpoint" "my_vpn_endpoint" {
   }
 
   connection_log_options {
-    enabled               = false
+    enabled = false
   }
 }
 
@@ -160,7 +160,7 @@ resource "aws_ec2_client_vpn_authorization_rule" "default_vpn_authorization_rule
   authorize_all_groups   = true
 }
 
-/* ===================================   15.2     =============================================== */
+/* ===================================   15.2   =============================================== */
 
 /* ========================== Security groups ========================== */
 resource "aws_security_group" "security_group" {
@@ -168,8 +168,8 @@ resource "aws_security_group" "security_group" {
   vpc_id = module.vpc.vpc_id
   egress {
     protocol    = -1
-    from_port   = 0 
-    to_port     = 0 
+    from_port   = 0
+    to_port     = 0
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
@@ -197,7 +197,7 @@ resource "aws_s3_bucket" "bucket" {
   versioning {
     enabled = false
   }
-    tags = {Name = "S3 bucket"}
+  tags = { Name = "S3 bucket" }
 }
 
 resource "aws_s3_bucket_object" "img" {
@@ -237,26 +237,26 @@ data "aws_ami" "aws_ubuntu" {
   owners = ["099720109477"]
 }
 data "template_file" "script" {
-  template = "${file("script.tpl")}"
+  template = file("script.tpl")
   vars = {
-    url = data.aws_s3_bucket.bucket.bucket_domain_name
+    url  = data.aws_s3_bucket.bucket.bucket_domain_name
     file = data.aws_s3_bucket_object.img.key
   }
 }
 
 resource "aws_launch_configuration" "as_conf" {
-  name_prefix   = "dz-"
-  image_id      ="ami-0ff338189efb7ed37"
-  instance_type = "t3.micro"
-  security_groups = [aws_security_group.security_group.id]
-  key_name = "main"
+  name_prefix                 = "dz-"
+  image_id                    = "ami-0ff338189efb7ed37"
+  instance_type               = "t3.micro"
+  security_groups             = [aws_security_group.security_group.id]
+  key_name                    = "main"
   associate_public_ip_address = true
   //bootstrap
   user_data = data.template_file.script.rendered
 }
 
 resource "aws_elb" "elb" {
-  name = "elb"
+  name    = "elb"
   subnets = [aws_subnet.public.id, aws_subnet.private.id]
   listener {
     instance_port     = 80
@@ -264,7 +264,7 @@ resource "aws_elb" "elb" {
     lb_port           = 80
     lb_protocol       = "http"
   }
-  security_groups = [aws_security_group.security_group.id]
+  security_groups             = [aws_security_group.security_group.id]
   cross_zone_load_balancing   = true
   idle_timeout                = 400
   connection_draining         = true
@@ -278,19 +278,19 @@ resource "aws_autoscaling_group" "autoscaling_group" {
   name                 = "autoscaling_group"
   launch_configuration = aws_launch_configuration.as_conf.name
   min_size             = 3
-  max_size             = 5
-  vpc_zone_identifier = [aws_subnet.public.id, aws_subnet.public2.id, aws_subnet.public3.id]
-  load_balancers = [aws_elb.elb.id]
+  max_size             = 3
+  vpc_zone_identifier  = [aws_subnet.public.id, aws_subnet.public2.id, aws_subnet.public3.id]
+  load_balancers       = [aws_elb.elb.id]
 }
 
 /* ========================== Outputs ========================== */
-output "url"  {
+output "url" {
   value = data.aws_s3_bucket.bucket.bucket_domain_name
 }
-output "file"  {
+output "file" {
   value = data.aws_s3_bucket_object.img.key
 }
-output "elb_dns_name"  {
+output "elb_dns_name" {
   value = aws_elb.elb.dns_name
 }
 ```
