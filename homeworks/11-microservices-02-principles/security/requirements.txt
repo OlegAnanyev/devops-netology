@@ -1,4 +1,4 @@
-Flask==1.1.1
+Flask==2.3.2
 PyJwt==2.4.0
 passlib==1.7.4
 PyJWT==2.0.1
